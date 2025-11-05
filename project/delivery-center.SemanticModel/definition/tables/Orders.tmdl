@@ -1,0 +1,315 @@
+table Orders
+	lineageTag: 4d867a8c-f6f8-428c-8a86-14c2ad359749
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f8853090-4b5c-481d-ae03-26fd1aa5c767
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: string
+		lineageTag: da219afa-a969-4098-bd8d-fac5c1ec1bd2
+		summarizeBy: none
+		sourceColumn: store_id
+		sortByColumn: n_store_id
+
+		changedProperty = DataType
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: e76418fe-4b67-4b05-a1fd-d251bab7bdaf
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_amount
+		dataType: double
+		lineageTag: 008eb039-74f6-4560-9b39-f8856490b938
+		summarizeBy: sum
+		sourceColumn: order_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_delivery_fee
+		dataType: double
+		formatString: 0
+		lineageTag: d95a6838-8017-4ec1-a91a-af695eba08b8
+		summarizeBy: sum
+		sourceColumn: order_delivery_fee
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_hour
+		dataType: int64
+		formatString: 0
+		lineageTag: ed37d069-67e7-48d0-aa37-4f27957d2071
+		summarizeBy: sum
+		sourceColumn: order_created_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_minute
+		dataType: int64
+		formatString: 0
+		lineageTag: 8227b135-367a-4237-b4bc-91ec545d758d
+		summarizeBy: sum
+		sourceColumn: order_created_minute
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_day
+		dataType: int64
+		formatString: 0
+		lineageTag: 33687605-5f9e-4679-8c22-d3f0e047e19b
+		summarizeBy: sum
+		sourceColumn: order_created_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 29a7f974-33d7-417e-85fc-8928b6ca92c8
+		summarizeBy: sum
+		sourceColumn: order_created_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_year
+		dataType: int64
+		formatString: 0
+		lineageTag: e665b2bd-d780-41c2-86c9-5201b05452ee
+		summarizeBy: sum
+		sourceColumn: order_created_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_created
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 95eabddb-98a6-499b-80ab-1bda72992522
+		summarizeBy: none
+		sourceColumn: order_moment_created
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_accepted
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 61ab328e-c7be-4c7a-bf4d-4e4c71da37d8
+		summarizeBy: none
+		sourceColumn: order_moment_accepted
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: string
+		lineageTag: d11d626e-df60-4cbd-b6b9-25a525e8a967
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column horas
+		dataType: string
+		lineageTag: 196fb3dc-612a-4459-a239-a731879fb884
+		summarizeBy: none
+		sourceColumn: horas
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_name
+		dataType: string
+		lineageTag: 7d3a5227-c684-4292-808a-bf2b29f3f66b
+		summarizeBy: none
+		sourceColumn: hub_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_city
+		dataType: string
+		lineageTag: 8e7f680f-ad1a-4ff8-b775-3269d60d4619
+		summarizeBy: none
+		sourceColumn: hub_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_state
+		dataType: string
+		lineageTag: e54a9867-7974-4935-b9fa-0e4323470426
+		summarizeBy: none
+		sourceColumn: hub_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_segment
+		dataType: string
+		lineageTag: 17580a2e-3350-4dff-82b0-08096a2dc04c
+		summarizeBy: none
+		sourceColumn: store_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: 7cf8f1dd-336f-4ea5-974c-4413a899db85
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ad3f9e44-0e2d-48f6-96ee-abbd63e9821f
+		summarizeBy: sum
+		sourceColumn: n_store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cycle_time =
+			
+			Orders[order_moment_finished] - Orders[order_moment_created]
+		dataType: double
+		lineageTag: d35a1ade-a758-4690-8f0b-48c1c9857fbf
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_delivery_cost
+		dataType: double
+		lineageTag: db90d280-7b58-4592-b28f-fab90e6b4af2
+		summarizeBy: sum
+		sourceColumn: order_delivery_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_moment_finished
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c75d1809-fea4-46f1-a0c6-10129994710c
+		summarizeBy: none
+		sourceColumn: order_moment_finished
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_cycle_time
+		dataType: double
+		lineageTag: f11a6cbe-35ce-4b9d-9ab3-8e01e583450f
+		summarizeBy: sum
+		sourceColumn: order_metric_cycle_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column channel_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 54df6e52-a74f-4f96-8ca3-58f2c07917b1
+		summarizeBy: none
+		sourceColumn: channel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 97c85bb9-7e72-474d-96e7-19491a699a43
+		summarizeBy: sum
+		sourceColumn: payment_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ecf2696d-d0be-4f15-b3f2-29dac57abaff
+		summarizeBy: sum
+		sourceColumn: delivery_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_collected
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e6d68d8e-26d0-4c2f-9eb6-ee3678852e52
+		summarizeBy: none
+		sourceColumn: order_moment_collected
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_in_expedition
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fd81f949-9f5d-4671-9ace-821127be2221
+		summarizeBy: none
+		sourceColumn: order_moment_in_expedition
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_delivering
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 16b1eb53-d804-4546-beb7-f3cd47a725eb
+		summarizeBy: none
+		sourceColumn: order_moment_delivering
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_delivered
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 197859a7-5a89-496e-9cb1-12b4b1682943
+		summarizeBy: none
+		sourceColumn: order_moment_delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_production_time
+		dataType: double
+		lineageTag: fee382c6-f4a1-4f84-b5a0-a3ca482ba275
+		summarizeBy: sum
+		sourceColumn: order_metric_production_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hub_name_a
+		dataType: string
+		lineageTag: 8f8fd1d8-1840-49b4-8ec5-2715ac727b65
+		summarizeBy: none
+		sourceColumn: hub_name_a
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Orders = m
+		mode: import
+		source =
+				let
+				    Origem = Sql.Database("localhost:1433", "master", [Query="SELECT * FROM DELIVERY.V_ORDERS"])
+				in
+				    Origem
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

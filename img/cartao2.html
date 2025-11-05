@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .kpi-card {
+            position: relative;
+            width: 260px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px #0000001a;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            transform: translateY(0);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 18px #00000026;
+        }
+
+        .kpi-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.9);
+            transition: transform 0.5s ease;
+        }
+
+        .kpi-card:hover .kpi-bg {
+            transform: scale(1.05);
+        }
+
+        .kpi-content {
+            position: relative;
+            padding: 18px;
+            color: #030000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .kpi-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .kpi-value {
+            font-size: 30px;
+            font-weight: 700;
+            margin: 6px 0 10px;
+        }
+
+        /* Linha de barra e Target lado a lado */
+        .kpi-bar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Barra com fundo e preenchimento */
+        .kpi-bar {
+            flex: 1;
+            height: 10px;
+            background-color: #e6e6e6; /* fundo visível */
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .kpi-bar-fill {
+            height: 100%;
+            background-color: #00a8ff;
+            width: 85.71%;
+            border-radius: 4px 0 0 4px;
+            transition: width 0.5s ease;
+        }
+
+        .kpi-target {
+            font-size: 11px;
+            font-weight: 600;
+            color: #444;
+            white-space: nowrap;
+        }
+
+        .kpi-separator {
+            border: none;
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 10px 0;
+            opacity: 0.7;
+        }
+
+        .kpi-details {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .kpi-details-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kpi-details-label {
+            color: #000000;
+        }
+
+        .kpi-details-value {
+            color: #000000;
+            font-weight: 600;
+        }
+
+        /* Linha indicadora do target */
+        .kpi-bar-target {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #000000;
+            transform: translateX(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class='kpi-card'>
+        <div class='kpi-bg'></div>
+        <div class='kpi-content'>
+            <div>
+                <div class='kpi-title'>% Delivery Fulfillment Rate</div>
+                <div class='kpi-value'>85,71%</div>
+
+                <!-- Barra e Target lado a lado -->
+                <div class='kpi-bar-container'>
+                    <div class='kpi-bar'>
+                        <div class='kpi-bar-fill'></div>
+                         <div class='kpi-bar-target' style='left: 95%;'></div>
+                    </div>
+                    <div class='kpi-target'>Target: 95%</div>
+                </div>
+
+                <!-- Linha separadora -->
+                <hr class='kpi-separator'>
+            </div>
+
+            <div class='kpi-details'>
+                <div class='kpi-details-item'>
+                    <span class='kpi-details-label'>Qtde DTD:</span>
+                    <span class='kpi-details-value'>23</span>
+                </div>
+                <div class='kpi-details-item'>
+                    <span class='kpi-details-label'>Qtde Open:</span>
+                    <span class='kpi-details-value'>19</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

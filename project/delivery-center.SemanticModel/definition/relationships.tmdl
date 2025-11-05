@@ -1,0 +1,20 @@
+relationship a46a6c74-2d52-470a-b6ef-9eb279e80641
+	fromColumn: Orders.horas
+	toColumn: Horas.Hora
+
+relationship 4c47f2a7-56f1-4b21-896d-8876257d5033
+	fromColumn: Orders.date
+	toColumn: Calendar.Data
+
+relationship 3558d534-c95d-4172-8a59-7104cdd94942
+	fromColumn: Orders.channel_id
+	toColumn: Channels.channel_id
+
+relationship ba3de2b4-bc60-4496-a76d-a9b09653d8fe
+	fromColumn: Deliveries.date
+	toColumn: Calendar.Data
+
+relationship 0aa0c481-a30e-4eec-8eb7-c0afbbf69239
+	fromColumn: Deliveries.horas
+	toColumn: Horas.Hora
+

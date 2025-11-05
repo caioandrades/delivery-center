@@ -1,0 +1,83 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "ReportSection9ca397c109208bbab886",
+  "displayName": "Entregas",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'a.svg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "a46965688399976435.svg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "112997421a149defde66",
+      "target": "42329c8471415ba83ac2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "787db54f6f9ac9d8a5b4",
+      "target": "42329c8471415ba83ac2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "787db54f6f9ac9d8a5b4",
+      "target": "112997421a149defde66",
+      "type": "DataFilter"
+    },
+    {
+      "source": "985e89b41f9466811db1",
+      "target": "42329c8471415ba83ac2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "112997421a149defde66",
+      "target": "985e89b41f9466811db1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "42329c8471415ba83ac2",
+      "target": "112997421a149defde66",
+      "type": "DataFilter"
+    }
+  ]
+}

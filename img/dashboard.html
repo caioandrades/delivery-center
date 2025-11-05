@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Indicadores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            /* Dimensões: 1470px de largura por 770px de altura */
+            width: 1470px;
+            height: 770px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ===== SEÇÃO DE FILTROS ===== */
+        .filters-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px 20px;
+            background-color: #fafafa;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            font-size: 13px;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-group select:hover,
+        .filter-group input:hover {
+            border-color: #0066cc;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .clear-slicers {
+            align-self: flex-end;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            margin-top: 5px;
+        }
+
+        .clear-slicers:hover {
+            color: #0052a3;
+            text-decoration: underline;
+        }
+
+        /* ===== SEÇÃO DE KPIs ===== */
+        .kpis-section {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 15px;
+        }
+
+        .kpi-card {
+            background-color: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 180px;
+        }
+
+        .kpi-card:hover {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+
+        .kpi-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        .kpi-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0066cc;
+            line-height: 1;
+        }
+
+        .kpi-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .kpi-bar {
+            flex: 1;
+            height: 8px;
+            background-color: #e8e8e8;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .kpi-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .kpi-bar-fill.blue { background-color: #0066cc; }
+        .kpi-bar-fill.green { background-color: #00a651; }
+        .kpi-bar-fill.orange { background-color: #ff9500; }
+        .kpi-bar-fill.purple { background-color: #7c3aed; }
+
+        .kpi-bar-label {
+            font-size: 10px;
+            color: #999;
+            font-weight: 600;
+            min-width: 35px;
+            text-align: right;
+        }
+
+        .kpi-details {
+            font-size: 10px;
+            color: #666;
+            line-height: 1.4;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 8px;
+            margin-top: auto;
+        }
+
+        .kpi-details-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
+
+        .kpi-details-label { color: #999; font-weight: 500; }
+        .kpi-details-value { color: #333; font-weight: 600; }
+
+        /* ===== SEÇÃO DE GRÁFICO ===== */
+        .chart-section {
+            background-color: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .chart-container {
+            position: relative;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* SVG Gráfico */
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1500px) {
+            .dashboard-container {
+                width: 100%;
+                height: auto;
+                padding: 20px;
+            }
+            .kpis-section {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .kpis-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .kpis-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- SEÇÃO DE FILTROS -->
+        <div class="filters-section">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label for="project">Project</label>
+                    <select id="project">
+                        <option>Easy Delivery Demo</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="milestone">Milestone</label>
+                    <select id="milestone">
+                        <option>Tudo</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="date-start">Date</label>
+                    <input type="date" id="date-start" value="2025-01-01">
+                </div>
+
+                <div class="filter-group">
+                    <label for="date-end">Date</label>
+                    <input type="date" id="date-end" value="2025-10-17">
+                </div>
+            </div>
+            <a href="#" class="clear-slicers">Clear all slicers</a>
+        </div>
+
+        <!-- SEÇÃO DE KPIs -->
+        <div class="kpis-section">
+            <!-- KPI 1: % Delivery Fulfillment Rate -->
+            <div class="kpi-card">
+                <div class="kpi-title">% Delivery Fulfillment Rate</div>
+                <div class="kpi-value">85,71%</div>
+                <div class="kpi-bar-container">
+                    <div class="kpi-bar">
+                        <div class="kpi-bar-fill blue" style="width: 85.71%;"></div>
+                    </div>
+                    <div class="kpi-bar-label">100%</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Target:</span>
+                        <span class="kpi-details-value">95%</span>
+                    </div>
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Qtde DTD:</span>
+                        <span class="kpi-details-value">23</span>
+                    </div>
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Qtde Open:</span>
+                        <span class="kpi-details-value">19</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 2: % Allocation Ratio -->
+            <div class="kpi-card">
+                <div class="kpi-title">% Allocation Ratio</div>
+                <div class="kpi-value">11,86%</div>
+                <div class="kpi-bar-container">
+                    <div class="kpi-bar">
+                        <div class="kpi-bar-fill green" style="width: 11.86%;"></div>
+                    </div>
+                    <div class="kpi-bar-label">100%</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Agreed allocation:</span>
+                        <span class="kpi-details-value">56 hrs</span>
+                    </div>
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Real allocation:</span>
+                        <span class="kpi-details-value">472 hrs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 3: % Allocation Efficiency -->
+            <div class="kpi-card">
+                <div class="kpi-title">% Allocation Efficiency</div>
+                <div class="kpi-value">5,30%</div>
+                <div class="kpi-bar-container">
+                    <div class="kpi-bar">
+                        <div class="kpi-bar-fill orange" style="width: 5.30%;"></div>
+                    </div>
+                    <div class="kpi-bar-label">100%</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Real execution:</span>
+                        <span class="kpi-details-value">25 hrs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 4: % First Time Right -->
+            <div class="kpi-card">
+                <div class="kpi-title">% First Time Right</div>
+                <div class="kpi-value">85,71%</div>
+                <div class="kpi-bar-container">
+                    <div class="kpi-bar">
+                        <div class="kpi-bar-fill blue" style="width: 85.71%;"></div>
+                    </div>
+                    <div class="kpi-bar-label">100%</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Numbr. of WP FTR:</span>
+                        <span class="kpi-details-value">24</span>
+                    </div>
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Numbr. of WP Closed:</span>
+                        <span class="kpi-details-value">28</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 5: % On-time Delivery -->
+            <div class="kpi-card">
+                <div class="kpi-title">% On-time Delivery</div>
+                <div class="kpi-value">82,14%</div>
+                <div class="kpi-bar-container">
+                    <div class="kpi-bar">
+                        <div class="kpi-bar-fill orange" style="width: 82.14%;"></div>
+                    </div>
+                    <div class="kpi-bar-label">100%</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Numbr. of WP OTD:</span>
+                        <span class="kpi-details-value">23</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 6: % Total Rejection -->
+            <div class="kpi-card">
+                <div class="kpi-title">% Total Rejection</div>
+                <div class="kpi-value">85,71%</div>
+                <div class="kpi-bar-container">
+                    <div class="kpi-bar">
+                        <div class="kpi-bar-fill purple" style="width: 85.71%;"></div>
+                    </div>
+                    <div class="kpi-bar-label">100%</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Numbr. of WP FTR:</span>
+                        <span class="kpi-details-value">24</span>
+                    </div>
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Numbr. of WP Closed:</span>
+                        <span class="kpi-details-value">28</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 7: % SDWSR Rate -->
+            <div class="kpi-card">
+                <div class="kpi-title">% SDWSR Rate</div>
+                <div class="kpi-value">82,14%</div>
+                <div class="kpi-bar-container">
+                    <div class="kpi-bar">
+                        <div class="kpi-bar-fill blue" style="width: 82.14%;"></div>
+                    </div>
+                    <div class="kpi-bar-label">100%</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-details-item">
+                        <span class="kpi-details-label">Numbr. of WP OTD:</span>
+                        <span class="kpi-details-value">23</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE GRÁFICO -->
+        <div class="chart-section">
+            <div class="chart-title">Effort Deviation vs WP Effort Sold</div>
+            <div class="chart-container">
+                <svg viewBox="0 0 800 250" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Fundo do gráfico -->
+                    <rect x="60" y="20" width="720" height="180" fill="#f9f9f9" stroke="#e8e8e8" stroke-width="1"/>
+
+                    <!-- Linhas de grade horizontal -->
+                    <line x1="60" y1="200" x2="780" y2="200" stroke="#e8e8e8" stroke-width="1"/>
+                    <line x1="60" y1="155" x2="780" y2="155" stroke="#e8e8e8" stroke-width="1"/>
+                    <line x1="60" y1="110" x2="780" y2="110" stroke="#e8e8e8" stroke-width="1"/>
+                    <line x1="60" y1="65" x2="780" y2="65" stroke="#e8e8e8" stroke-width="1"/>
+                    <line x1="60" y1="20" x2="780" y2="20" stroke="#e8e8e8" stroke-width="1"/>
+
+                    <!-- Eixo Y (Esquerda) -->
+                    <line x1="60" y1="20" x2="60" y2="200" stroke="#999" stroke-width="1.5"/>
+                    <!-- Eixo X (Inferior) -->
+                    <line x1="60" y1="200" x2="780" y2="200" stroke="#999" stroke-width="1.5"/>
+
+                    <!-- Labels do eixo Y (Effort Deviation) -->
+                    <text x="50" y="205" font-size="11" fill="#999" text-anchor="end">0%</text>
+                    <text x="50" y="160" font-size="11" fill="#999" text-anchor="end">50%</text>
+                    <text x="50" y="115" font-size="11" fill="#999" text-anchor="end">100%</text>
+                    <text x="50" y="70" font-size="11" fill="#999" text-anchor="end">150%</text>
+                    <text x="50" y="25" font-size="11" fill="#999" text-anchor="end">200%</text>
+
+                    <!-- Labels do eixo X (Semanas) -->
+                    <text x="130" y="220" font-size="11" fill="#999" text-anchor="middle">W32</text>
+                    <text x="260" y="220" font-size="11" fill="#999" text-anchor="middle">W33</text>
+                    <text x="390" y="220" font-size="11" fill="#999" text-anchor="middle">2025</text>
+                    <text x="520" y="220" font-size="11" fill="#999" text-anchor="middle">W34</text>
+                    <text x="650" y="220" font-size="11" fill="#999" text-anchor="middle">W35</text>
+
+                    <!-- Linha de dados (Effort Deviation)
+                         Dados: W32: 167%, W33: 175%, W34: 53%, W35: 75%
+                         Escala: 200% = 180px de altura (0 a 180)
+                         Cálculo: y = 200 - (valor% * 180 / 200)
+                         W32 (167%): y = 200 - (167 * 180 / 200) = 200 - 150.3 = 49.7
+                         W33 (175%): y = 200 - (175 * 180 / 200) = 200 - 157.5 = 42.5
+                         W34 (53%): y = 200 - (53 * 180 / 200) = 200 - 47.7 = 152.3
+                         W35 (75%): y = 200 - (75 * 180 / 200) = 200 - 67.5 = 132.5
+                    -->
+                    <polyline points="130,49.7 260,42.5 390,152.3 520,152.3 650,132.5" 
+                              fill="none" stroke="#0066cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Preenchimento da área sob a linha -->
+                    <polygon points="130,49.7 260,42.5 390,152.3 520,152.3 650,132.5 650,200 520,200 390,200 260,200 130,200" 
+                             fill="rgba(0, 102, 204, 0.05)"/>
+
+                    <!-- Pontos de dados -->
+                    <circle cx="130" cy="49.7" r="4" fill="#0066cc" stroke="#fff" stroke-width="2"/>
+                    <circle cx="260" cy="42.5" r="4" fill="#0066cc" stroke="#fff" stroke-width="2"/>
+                    <circle cx="390" cy="152.3" r="4" fill="#0066cc" stroke="#fff" stroke-width="2"/>
+                    <circle cx="520" cy="152.3" r="4" fill="#0066cc" stroke="#fff" stroke-width="2"/>
+                    <circle cx="650" cy="132.5" r="4" fill="#0066cc" stroke="#fff" stroke-width="2"/>
+
+                    <!-- Labels dos valores de dados -->
+                    <text x="130" y="35" font-size="11" fill="#0066cc" font-weight="bold" text-anchor="middle">167%</text>
+                    <text x="260" y="28" font-size="11" fill="#0066cc" font-weight="bold" text-anchor="middle">175%</text>
+                    <text x="390" y="168" font-size="11" fill="#0066cc" font-weight="bold" text-anchor="middle">53%</text>
+                    <text x="520" y="168" font-size="11" fill="#0066cc" font-weight="bold" text-anchor="middle">53%</text>
+                    <text x="650" y="148" font-size="11" fill="#0066cc" font-weight="bold" text-anchor="middle">75%</text>
+
+                    <!-- Título do eixo Y -->
+                    <text x="15" y="110" font-size="12" fill="#666" font-weight="600" text-anchor="middle" transform="rotate(-90 15 110)">Effort Deviation</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

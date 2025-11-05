@@ -1,0 +1,139 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1360.6918883172161,
+            "y": 262.34128337422447
+          },
+          "nodeIndex": "Orders",
+          "nodeLineageTag": "4d867a8c-f6f8-428c-8a86-14c2ad359749",
+          "size": {
+            "height": 790,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1728.8673449400515,
+            "y": 91.228825641656641
+          },
+          "nodeIndex": "Channels",
+          "nodeLineageTag": "c577aab6-7942-47f0-bfb4-17f4b701e88d",
+          "size": {
+            "height": 159.18133370552221,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1028.3012529100918,
+            "y": 459.65890126734166
+          },
+          "nodeIndex": "Deliveries",
+          "nodeLineageTag": "eb0a9683-e81d-4175-9be5-15273be55ff6",
+          "size": {
+            "height": 452.4814048134777,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 98.448905204961534,
+            "y": 179.39834066017437
+          },
+          "nodeIndex": "Payments",
+          "nodeLineageTag": "f14fc01a-379f-401e-ad48-61b78fc1b2b3",
+          "size": {
+            "height": 238.67789809333351,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 539.38902589600866,
+            "y": 70.912711945653015
+          },
+          "nodeIndex": "Horas",
+          "nodeLineageTag": "8d14729a-743d-46db-9e6e-bcde050ca2a5",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 911.74491388859633,
+            "y": 86.6269976599387
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "2937e36a-a300-4907-933d-56ea0725d5bc",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 2074.5744601423212,
+            "y": 70.319568103221229
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "25b5b65d-f6a8-4ba8-b4ae-ea6c57546e32",
+          "size": {
+            "height": 360.65758130818392,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 2032.9826977945027,
+            "y": 527.06642672401165
+          },
+          "nodeIndex": "TOPN",
+          "nodeLineageTag": "396d8372-aeba-43aa-8576-01fbec51fcd9",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1771.3909354466846,
+            "y": 801.02214224133684
+          },
+          "nodeIndex": "idiomas",
+          "nodeLineageTag": "ec4f353e-d228-4877-9123-010e488d5ccf",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 49.590342827053796,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

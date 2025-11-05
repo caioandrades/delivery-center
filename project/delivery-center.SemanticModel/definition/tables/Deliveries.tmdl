@@ -1,0 +1,322 @@
+table Deliveries
+	lineageTag: eb0a9683-e81d-4175-9be5-15273be55ff6
+
+	column delivery_order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 22baeb9c-fda1-412b-96ab-ec42e45aa4ad
+		summarizeBy: sum
+		sourceColumn: delivery_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e5d6fe87-02af-4bd9-a9d2-d9c10ae5f5bc
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 620aa3d5-cd52-462f-8a05-8b65b326a0f5
+		summarizeBy: sum
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 686b417e-a779-4e9a-8a33-093fc7e74033
+		summarizeBy: sum
+		sourceColumn: n_store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_name
+		dataType: string
+		lineageTag: 718d1555-ece5-4ae3-9d91-7cff768f46c1
+		summarizeBy: none
+		sourceColumn: hub_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_city
+		dataType: string
+		lineageTag: 670907ea-eaf1-4a5d-915f-9a834a2a8c92
+		summarizeBy: none
+		sourceColumn: hub_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_state
+		dataType: string
+		lineageTag: f43faef0-8df2-413c-a007-34f5d15573d6
+		summarizeBy: none
+		sourceColumn: hub_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: 2cfec1ac-ee56-4061-94f9-7b5bc24eaa0f
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_segment
+		dataType: string
+		lineageTag: 825c8894-25de-460d-81ed-010c3e9a4e77
+		summarizeBy: none
+		sourceColumn: store_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_created
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d05a51f6-767d-4109-9a75-469601fea136
+		summarizeBy: none
+		sourceColumn: order_moment_created
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4badde65-6eef-4a0c-bdde-37c078225d9e
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column horas
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 1dd0355b-54f4-41e7-92c5-6c5c2ed93f84
+		summarizeBy: none
+		sourceColumn: horas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column order_moment_finished
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 902ad737-74c5-468f-a29c-78c961670556
+		summarizeBy: none
+		sourceColumn: order_moment_finished
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 721eb4b0-b49e-4883-95b8-7fc7f3c41895
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_amount
+		dataType: double
+		lineageTag: 87832ecf-4f2b-4486-baa0-8017e7611dc5
+		summarizeBy: sum
+		sourceColumn: order_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_delivery_fee
+		dataType: double
+		lineageTag: b7a9be21-3277-4080-aa7a-68716f27a1a3
+		summarizeBy: sum
+		sourceColumn: order_delivery_fee
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_delivery_cost
+		dataType: double
+		lineageTag: fa2ea0a0-f415-40ba-8a6f-e30cfb1ee1f1
+		summarizeBy: sum
+		sourceColumn: order_delivery_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_metric_cycle_time
+		dataType: int64
+		formatString: 0
+		lineageTag: de67d802-564f-4c8c-a145-deddbd1ae7aa
+		summarizeBy: sum
+		sourceColumn: order_metric_cycle_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column life_cycle_time =
+			
+			Deliveries[order_moment_finished] - Deliveries[order_moment_created]
+		dataType: double
+		lineageTag: d30cf143-03e0-492a-adb3-c9e1633574a4
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_metric_production_time
+		dataType: double
+		lineageTag: 204b24ec-78c7-44fa-872b-49093da6b08e
+		summarizeBy: sum
+		sourceColumn: order_metric_production_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_created_hour
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c305eea-201c-460e-921c-ea16ba683144
+		summarizeBy: sum
+		sourceColumn: order_created_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimeted_cycle_life =
+			
+			AVERAGE(Deliveries[life_cycle_time])
+		lineageTag: eaa0a9f1-73e2-4536-8da1-970a8df8f950
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_moment_in_expedition
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8382288b-b320-4478-bdda-580fdb614d95
+		summarizeBy: none
+		sourceColumn: order_moment_in_expedition
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_time_delivery =
+			
+			Deliveries[order_moment_estimated] - Deliveries[order_moment_finished]
+		dataType: double
+		lineageTag: 037041a0-0698-45a5-9bfd-7e4f9e399e68
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: b197e094-fa9f-4ac8-822e-f8cd11c43a5f
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_estimated
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ce5712f2-eaef-4351-a471-5fc047953513
+		summarizeBy: none
+		sourceColumn: order_moment_estimated
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_checked
+		dataType: string
+		lineageTag: 2ae64f78-237c-472e-9944-a1c23bd3e2e5
+		summarizeBy: none
+		sourceColumn: is_checked
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_checked_in_full
+		dataType: int64
+		formatString: 0
+		lineageTag: 63c77faf-39c0-4240-8f2f-5fd8a396b939
+		summarizeBy: sum
+		sourceColumn: is_checked_in_full
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_status
+		dataType: string
+		lineageTag: 8a990ec0-9f07-4d8c-a138-5790f97c758d
+		summarizeBy: none
+		sourceColumn: delivery_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_distance_meters
+		dataType: int64
+		formatString: 0
+		lineageTag: 00db5bb9-8cf4-451a-9b6c-4c642f26de40
+		summarizeBy: sum
+		sourceColumn: delivery_distance_meters
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_cycle_time_second
+		dataType: int64
+		formatString: 0
+		lineageTag: 18d51bdd-8408-4e91-97b9-a4ef51561b65
+		summarizeBy: sum
+		sourceColumn: order_metric_cycle_time_second
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_cicle_life
+		dataType: int64
+		formatString: 0
+		lineageTag: 00e414d8-0a5a-4d82-8a72-001f8809fb49
+		summarizeBy: sum
+		sourceColumn: avg_cicle_life
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_velocity_km_per_hour
+		dataType: double
+		lineageTag: 7ec33071-0eeb-43a7-8051-de869b8b1c58
+		summarizeBy: sum
+		sourceColumn: avg_velocity_km_per_hour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Deliveries = m
+		mode: import
+		source =
+				let
+				    Origem = Sql.Database("localhost", "master", [Query="SELECT * FROM DELIVERY.V_DELIVERIES#(lf)", CreateNavigationProperties=false]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Origem,{{"date", type date}, {"horas", type time}, {"order_metric_cycle_time", Int64.Type}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado","SHOPPING","",Replacer.ReplaceText,{"hub_name"})
+				in
+				    #"Valor Substituído"
+
+	annotation PBI_ResultType = Table
+

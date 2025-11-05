@@ -1,0 +1,22 @@
+table idiomas
+	lineageTag: ec4f353e-d228-4877-9123-010e488d5ccf
+
+	column language
+		dataType: string
+		lineageTag: fe81d64b-26ac-4b7e-9cac-ebd64dcdd640
+		summarizeBy: none
+		sourceColumn: language
+
+		annotation SummarizationSetBy = Automatic
+
+	partition idiomas = m
+		mode: import
+		source =
+				let
+				    Origem = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCghRitWJVnL1U4qNBQA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [language = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Origem,{{"language", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

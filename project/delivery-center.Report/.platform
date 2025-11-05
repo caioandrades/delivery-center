@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "delivery-center"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "39ab205e-9e3d-4e61-b5cf-0c87e5a1e41b"
+  }
+}

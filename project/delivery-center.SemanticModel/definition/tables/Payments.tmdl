@@ -1,0 +1,66 @@
+table Payments
+	lineageTag: f14fc01a-379f-401e-ad48-61b78fc1b2b3
+
+	column payment_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c24b8d39-3f7f-4a53-b26f-a1e77808ec96
+		summarizeBy: sum
+		sourceColumn: payment_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 05ea03ad-2bd2-405e-bfe3-bed1efc57169
+		summarizeBy: sum
+		sourceColumn: payment_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_amount
+		dataType: double
+		lineageTag: f91fc2a0-dbc3-47a8-b1a8-8b4885556888
+		summarizeBy: sum
+		sourceColumn: payment_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column payment_fee
+		dataType: double
+		formatString: 0
+		lineageTag: a56518ee-e6f8-49f9-8ccb-796572f9f0c0
+		summarizeBy: sum
+		sourceColumn: payment_fee
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: bc082240-5b85-4b42-83ea-1baa83294d85
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_status
+		dataType: string
+		lineageTag: 31018087-e73c-4367-a73b-c761703240d4
+		summarizeBy: none
+		sourceColumn: payment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Payments = m
+		mode: import
+		source =
+				let
+				    Origem = Sql.Database("localhost", "master", [Query="SELECT #(lf)payment_id, payment_order_id,#(lf)ROUND(payment_amount,2) as payment_amount, #(lf)payment_fee, payment_method,payment_status #(lf)FROM DELIVERY.PAYMENTS", CreateNavigationProperties=false])
+				in
+				    Origem
+
+	annotation PBI_ResultType = Table
+

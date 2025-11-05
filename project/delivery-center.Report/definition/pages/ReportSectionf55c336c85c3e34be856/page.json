@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "ReportSectionf55c336c85c3e34be856",
+  "displayName": "Financeiro",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Delivery Center (Financeiro).svg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "Delivery_Center_(Financeiro)16725791961284564.svg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          },
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 0,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "7df64feea76046bd0c79",
+      "target": "c4fb8288c008edb0e02e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "c4fb8288c008edb0e02e",
+      "target": "7df64feea76046bd0c79",
+      "type": "DataFilter"
+    },
+    {
+      "source": "ab3694e9304081640098",
+      "target": "c4fb8288c008edb0e02e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "ab3694e9304081640098",
+      "target": "7df64feea76046bd0c79",
+      "type": "DataFilter"
+    }
+  ]
+}

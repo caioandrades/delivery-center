@@ -1,0 +1,26 @@
+model Model
+	culture: pt-PT
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Orders","Channels","Deliveries","Payments","Horas","Calendar","Medidas","idiomas"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Orders
+ref table Channels
+ref table Deliveries
+ref table Payments
+ref table Horas
+ref table Calendar
+ref table Medidas
+ref table TOPN
+ref table idiomas
+
+ref cultureInfo pt-PT
+

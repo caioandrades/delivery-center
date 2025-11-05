@@ -1,0 +1,186 @@
+table Calendar
+	lineageTag: 2937e36a-a300-4907-933d-56ea0725d5bc
+	dataCategory: Time
+
+	measure 'texto pagina inicial' =
+			
+			IF(SELECTEDVALUE(idiomas[language]) = "PT", "INICIAR", "START")
+		lineageTag: 8c19ee4e-80b7-4e98-bfc2-e0e39e2d8581
+
+	measure 'texto título On-Time Delivery gráfico de disperção' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Quantidade de pedidos e On-time Delivery Rate por HUB", "Orders and On-Time Delivery Rate HUB")
+		lineageTag: 8bed6fd8-0030-4174-9df7-d18779958c54
+
+	measure 'texto descrição botão iniciar' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Clique aqui", "Click here")
+		lineageTag: d5806695-642d-4742-b389-c48cb5f22ca4
+
+	measure 'Quantidade de pedidos dentro do prazo MoM%' =
+			
+			VAR __PREV_MONTH =
+				CALCULATE(
+					[Quantidade de pedidos dentro do prazo],
+					DATEADD('Calendar'[Data], -1, MONTH)
+				)
+			RETURN
+				DIVIDE(
+					[Quantidade de pedidos dentro do prazo] - __PREV_MONTH,
+					__PREV_MONTH
+				)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 75bfabf6-8b44-48f6-90c1-50145f7aa6eb
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "MonthOverMonth",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	measure 'Quantidade de pedidos fora do prazo MoM%' =
+			
+			VAR __PREV_MONTH =
+				CALCULATE(
+					[Quantidade de pedidos fora do prazo],
+					DATEADD('Calendar'[Data], -1, MONTH)
+				)
+			RETURN
+				DIVIDE(
+					[Quantidade de pedidos fora do prazo] - __PREV_MONTH,
+					__PREV_MONTH
+				)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d198931f-ecd9-4a0c-82af-82add33c44a2
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "MonthOverMonth",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 1fe49080-dbf2-4a29-bcd2-40142c51c69c
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 583afffb-860e-4895-9b5c-db2796a5960d
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: int64
+		formatString: 0
+		lineageTag: ae665c39-1381-4297-8f43-e7f4654a1682
+		summarizeBy: sum
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Mês'
+		dataType: string
+		lineageTag: aab31026-9eac-4d2c-a463-4282f4906d96
+		summarizeBy: none
+		sourceColumn: Nome do Mês
+		sortByColumn: Mês
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Semana do Mês'
+		dataType: int64
+		formatString: 0
+		lineageTag: cb0ed0b3-49b4-4d4f-ae58-d1202cb3d593
+		summarizeBy: sum
+		sourceColumn: Semana do Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semana
+		dataType: string
+		lineageTag: 4faa7697-b3f9-4e2b-ad36-64cbdc1d9aba
+		summarizeBy: none
+		sourceColumn: Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Número da semana do Ano'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7252bdf4-9825-4645-bbe2-ae6ee03e3039
+		summarizeBy: sum
+		sourceColumn: Número da semana do Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Semana do Ano'
+		dataType: string
+		lineageTag: ecabd3f5-e409-4a0f-932a-33a8334f3aa8
+		summarizeBy: none
+		sourceColumn: Semana do Ano
+		sortByColumn: 'Número da semana do Ano'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Num Mes'
+		dataType: int64
+		formatString: 0
+		lineageTag: a1745a52-fe9f-475c-b650-f49b52a421ad
+		summarizeBy: sum
+		sourceColumn: Num Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = m
+		mode: import
+		source =
+				let
+				    Origem = List.Dates(#date(2021, 1, 1), 120, #duration(1, 0, 0, 0)),
+				    #"Convertido em Tabela" = Table.FromList(Origem, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Colunas com Nome Mudado" = Table.RenameColumns(#"Convertido em Tabela", {{"Column1", "Data"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas com Nome Mudado", {{"Data", type date}}),
+				    #"Ano Inserido" = Table.AddColumn(#"Tipo Alterado", "Ano", each Date.Year([Data]), Int64.Type),
+				    #"Mês Inserido" = Table.AddColumn(#"Ano Inserido", "Mês", each Date.Month([Data]), Int64.Type),
+				    #"Nome do Mês Inserido" = Table.AddColumn(#"Mês Inserido", "Nome do Mês", each Date.MonthName([Data]), type text),
+				    #"Semana do Mês Inserida" = Table.AddColumn(
+				        #"Nome do Mês Inserido", "Semana do Mês", each Date.WeekOfMonth([Data]), Int64.Type
+				    ),
+				    #"Prefixo Inserido" = Table.AddColumn(
+				        #"Semana do Mês Inserida", "Prefixo", each "W" & Text.From([Semana do Mês], "pt-PT"), type text
+				    ),
+				    #"Colunas com Nome Mudado1" = Table.RenameColumns(#"Prefixo Inserido", {{"Prefixo", "Semana"}}),
+				    #"Semana do Ano Inserida" = Table.AddColumn(
+				        #"Colunas com Nome Mudado1", "Semana do Ano", each Date.WeekOfYear([Data]), Int64.Type
+				    ),
+				    #"Prefixo Inserido1" = Table.AddColumn(
+				        #"Semana do Ano Inserida", "Prefixo", each "W" & Text.From([Semana do Ano], "pt-PT"), type text
+				    ),
+				    #"Colunas com Nome Mudado2" = Table.RenameColumns(
+				        #"Prefixo Inserido1", {{"Semana do Ano", "Número da semana do Ano"}, {"Prefixo", "Semana do Ano"}}
+				    ),
+				    #"Mês Inserido1" = Table.AddColumn(#"Colunas com Nome Mudado2", "Mês.1", each Date.Month([Data]), Int64.Type),
+				    #"Colunas com Nome Mudado3" = Table.RenameColumns(#"Mês Inserido1",{{"Mês.1", "Num Mes"}})
+				in
+				    #"Colunas com Nome Mudado3"
+
+	annotation PBI_ResultType = Table
+

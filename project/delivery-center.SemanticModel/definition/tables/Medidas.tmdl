@@ -1,0 +1,1738 @@
+table Medidas
+	lineageTag: 25b5b65d-f6a8-4ba8-b4ae-ea6c57546e32
+
+	measure '% faturado' =
+			
+			DIVIDE(
+			    [R$ Faturamento pedidos],
+			    [R$ Faturamento pedidos] + [R$ não faturado]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Financeiro
+		lineageTag: 918fbccb-3387-40af-9743-ca681dd5d080
+
+	measure 'R$ Faturamento pedidos' =
+			
+			CALCULATE(
+			    --- order_amout +  delivery_fee
+			    [Receita total],
+			    FILTER(ALL(Orders[order_status]),
+			    Orders[order_status] = "FINISHED"
+			    )
+			)
+		displayFolder: Financeiro
+		lineageTag: 76f7f7e8-3fde-4126-9b58-709e1338cc12
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "R$#,#0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "R$#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "R$#,#0,.0K; -#,#0,.0K",
+				     "R$#,0.0; - #,0.0"
+				)
+				return
+				"""" & FORMAT(SELECTEDMEASURE(), _Formato)  & """"
+				```
+
+	measure 'R$ pagamento' =
+			
+			CALCULATE(
+			    SUM(Payments[payment_amount]),
+			    FILTER(
+			        ALL(Payments[payment_status]),
+			        Payments[payment_status] = "PAID"
+			    )
+			)
+		displayFolder: Financeiro
+		lineageTag: 59e6edfd-890c-407e-9e0a-5314ad4f1a28
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "R$#,#0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "R$#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "R$#,#0,.0K; -#,#0,.0K",
+				     "R$#,0.0; - #,0.0"
+				)
+				return
+				"""" & IF(FORMAT(SELECTEDMEASURE(), _Formato) = BLANK(),0, FORMAT(SELECTEDMEASURE(), _Formato)  & """")
+				```
+
+	measure '% de Cancelamento' = ```
+			
+			/* Para calcular o percenntual de cancelamento, estamos dividindo a quantidade total de pedidos pela quantidade de pedidos cancelados*/
+			var vFat =DIVIDE(
+			        CALCULATE(
+			        [Receita total], 
+			        FILTER(ALL(Orders[order_status]),
+			        Orders[order_status] = "CANCELED")) -- total de faturamento cancelado
+			    ,
+			    [Receita total] -- total de faturamento
+			)
+			var vfat2 =
+			DIVIDE(
+			    [R$ não faturado],
+			    [R$ não faturado] + [Receita total]
+			)
+			return 
+			vfat2
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Financeiro
+		lineageTag: e32c283d-f806-4a56-a1f3-2e081630660e
+
+	measure Cancelamento =
+			
+			CALCULATE(
+			    [Quantidade de pedidos],
+			    FILTER(
+			        ALL(Orders[order_status]),
+			        Orders[order_status] = "CANCELED")
+			)
+		displayFolder: Entregas
+		lineageTag: e57f7bb5-298c-4cca-8e92-b7c0009fb22f
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "#,0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "#,#0,K; -#,#0,.0K",
+				     "#0; - #0"
+				)
+				return
+				"""" & FORMAT(SELECTEDMEASURE(), _Formato)  & """"
+				```
+
+	measure 'R$ não faturado' =
+			
+			/* Receita bruta não faturada são as receitas dos pedidos cancelados*/
+			 CALCULATE(
+			     [Receita total],
+			     FILTER(
+			         ALL(Orders[order_status]),
+			         Orders[order_status] = "CANCELED"
+			     )
+			 )
+		displayFolder: Financeiro
+		lineageTag: 85a4ce13-1e9b-4964-bb6c-bf36c96a01d4
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "R$#,#0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "R$#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "R$#,#0,.0K; -#,#0,.0K",
+				     "R$#,0.0; - #,0.0"
+				)
+				return
+				"""" & IF(FORMAT(SELECTEDMEASURE(), _Formato) = BLANK(),0, FORMAT(SELECTEDMEASURE(), _Formato)  & """")
+				```
+
+	measure '% não faturado' = ```
+			
+			var vFat =DIVIDE(
+			        CALCULATE(
+			        [Receita total], 
+			        FILTER(ALL(Orders[order_status]),
+			        Orders[order_status] = "CANCELED")) -- total de faturamento cancelado
+			    ,
+			    [Receita total] -- total de faturamento
+			)
+			--- existem duas formas de resolver esse problema
+			var vfat2 =
+			DIVIDE(
+			    [R$ não faturado],
+			    [R$ não faturado] + [Receita total]
+			)
+			return 
+			vFat
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Financeiro
+		lineageTag: c017b9f1-5cdc-4c4b-b5e0-0ef2c78eeddd
+
+	measure 'Receita total' = ```
+			
+			--- payment = order_amount + delivery_fee 
+			
+			SUM(Orders[order_amount])
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Financeiro
+		lineageTag: 965427b3-0ea2-41bc-ba20-6f80e444cc56
+
+	measure '% PGTO vs FAT' =
+			
+			DIVIDE(
+			    [R$ Faturamento pedidos],
+			    [R$ pagamento],
+			    0
+			)
+		displayFolder: Financeiro
+		lineageTag: aa79811e-326f-416f-9560-7f056fbbf262
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure payment_amount =
+			
+			SUM(Payments[payment_amount])
+		displayFolder: Financeiro
+		lineageTag: ff917ec6-65ab-4ba6-93fa-2decab00b5de
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO Y LINHAS' = ```
+			
+			var vTabela = ALLSELECTED('Calendar'[Ano], 'Calendar'[Mês], 'Calendar'[Nome do Mês], 'Calendar'[Semana], 'Calendar'[Semana do Ano])
+			var vValorMax = MAXX(vTabela, [R$ Faturamento pedidos])
+			var vDeslocamento = 1.4 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: e7859a0c-178e-4037-b6f7-50c47b281360
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO Y SEC LINHAS' = ```
+			
+			var vTabela = ALLSELECTED('Calendar'[Ano], 'Calendar'[Mês], 'Calendar'[Nome do Mês], 'Calendar'[Semana], 'Calendar'[Semana do Ano])
+			var vValorMax = MAXX(vTabela, [R$ não faturado])
+			var vDeslocamento = 1.4 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: a3c5fd47-960e-4f53-ab83-23bc196f243c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Barra Progresso Fat' = ```
+			
+			VAR vValor =            
+			    [% faturado]
+			
+			VAR vValor_formatado =      
+			    FORMAT( vValor, "0.00%" ) 
+			
+			VAR vMeta =            
+			    1
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "RECEITA FATURADA:"
+			VAR vRotulo_categoria_cor = "#3f3f3f"
+			VAR vRotulo_categoria_tam = 12
+			
+			
+			VAR vRotulo_dados_cor = "#3f3f3f"
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 110
+			
+			
+			VAR vBarra_altura = 15
+			
+			VAR vBarra_progresso_cor = "#21A0AA"
+			
+			VAR vBarra_fundo_cor = "#DCDCDC"
+			VAR vBarra_fundo_opacidade = 9
+			
+			VAR vLinha_meta_larg = 3
+			VAR vLinha_meta_cor = "#3f3f3f"
+			
+			
+			RETURN 
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='70' viewBox='0 0 200 70' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Barra de Fundo -->
+			     <rect id='f001' x='0' y='15' width='" & MIN(190, MAX(0, ROUND(131 * vMeta, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_fundo_cor & "' opacity='0." & vBarra_fundo_opacidade & "' rx='5' ry='5' />
+			
+			    <!-- Barra de Progresso -->
+			    <rect id='f002' x='0' y='15' width='" & MIN(190, MAX(0, ROUND(131 * vValor, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_progresso_cor & "' rx='5' ry='5' />
+			
+			    <!-- Linha de Meta -->
+			    <!-- <rect id='f005' x='" & MIN(190, MAX(0, ROUND(131 * vMeta, 0))) & " ' y='11' width='" & vLinha_meta_larg & "' height='" & vBarra_altura + 10 & "' fill='" & vLinha_meta_cor & "' /> -->
+			
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='0' y='50'> " & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			
+			    <!-- Texto de Dados -->
+			    <text id='f004' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'>
+			        <tspan x='" & vRotulo_dados_posicao & "' y='50'>" & vValor_formatado & "</tspan>
+			    </text>
+			</svg>
+			"
+			
+			```
+		displayFolder: Visuais
+		lineageTag: 9b210830-ba7f-469e-b06c-b921c68bf563
+
+	measure 'Barra Progresso Cancel' = ```
+			
+			VAR vValor =            
+			    [% não faturado]
+			
+			VAR vValor_formatado =      
+			    FORMAT( vValor, "0.00%" ) 
+			
+			VAR vMeta =            
+			    1 
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "RECEITA CANCELADA:"
+			VAR vRotulo_categoria_cor = "#3f3f3f"
+			VAR vRotulo_categoria_tam = 12
+			
+			
+			VAR vRotulo_dados_cor = "#3f3f3f"
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 120
+			
+			
+			VAR vBarra_altura = 15
+			
+			VAR vBarra_progresso_cor = "#F94F46"
+			
+			VAR vBarra_fundo_cor = "#DCDCDC"
+			VAR vBarra_fundo_opacidade = 9
+			
+			VAR vLinha_meta_larg = 3
+			VAR vLinha_meta_cor = "#3f3f3f"
+			
+			-- <rect id='f002' x='0' y='37' width='" & MIN(190, MAX(0, ROUND(131 * vValor, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_progresso_cor & "' rx='5' ry='5' />
+			
+			
+			RETURN 
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='70' viewBox='0 0 200 70' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Barra de Fundo -->
+			     <rect id='f001' x='0' y='15' width='" & MIN(190, MAX(0, ROUND(131 * vMeta, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_fundo_cor & "' opacity='0." & vBarra_fundo_opacidade & "' rx='5' ry='5' />
+			
+			    <!-- Barra de Progresso -->
+			    <rect id='f002' x='0' y='15' width='" & MIN(190, MAX(0, ROUND(131 * vValor, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_progresso_cor & "' rx='5' ry='5' />
+			
+			    <!-- Linha de Meta -->
+			    <!-- <rect id='f005' x='" & MIN(190, MAX(0, ROUND(131 * vMeta, 0))) & " ' y='11' width='" & vLinha_meta_larg & "' height='" & vBarra_altura + 10 & "' fill='" & vLinha_meta_cor & "' /> -->
+			
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='0' y='50'> " & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			
+			    <!-- Texto de Dados -->
+			    <text id='f004' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'>
+			        <tspan x='" & vRotulo_dados_posicao & "' y='50'>" & vValor_formatado & "</tspan>
+			    </text>
+			</svg>
+			"
+			```
+		displayFolder: Visuais
+		lineageTag: 8d043706-35ff-4c79-9655-7d95a07de875
+
+	measure 'Rotulos grafico de linhas' = ```
+			
+			var vTabela = ALLSELECTED('Calendar'[Ano],'Calendar'[Semana do Ano],'Calendar'[Número da semana do Ano], 'Calendar'[Mês],'Calendar'[Nome do Mês])
+			var vValorMaximo = MAXX(vTabela, ([R$ Faturamento pedidos]))
+			return 
+			IF(vValorMaximo = [R$ Faturamento pedidos], vValorMaximo, BLANK())
+			```
+		displayFolder: Visuais
+		lineageTag: f9a67cd1-c059-48c7-ad22-d8219b3939e9
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "R$#,#0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "R$#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "R$#,#0,.0K; -#,#0,.0K",
+				     "R$#,0.0; - #,0.0"
+				)
+				return
+				"""" & FORMAT(SELECTEDMEASURE(), _Formato)  & """"
+				```
+
+	measure 'Rotulos grafico de linhas cancelamento' = ```
+			
+			var vTabela = ALLSELECTED('Calendar'[Ano],'Calendar'[Semana do Ano],'Calendar'[Número da semana do Ano], 'Calendar'[Mês],'Calendar'[Nome do Mês])
+			var vValorMaximo = MAXX(vTabela, ([R$ não faturado]))
+			return 
+			IF(vValorMaximo = [R$ não faturado], vValorMaximo, BLANK())
+			```
+		displayFolder: Visuais
+		lineageTag: ad2594c1-4b46-4035-bd85-1badb592a833
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "R$#,#0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "R$#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "R$#,#0,.0K; -#,#0,.0K",
+				     "R$#,0.0; - #,0.0"
+				)
+				return
+				"""" & FORMAT(SELECTEDMEASURE(), _Formato)  & """"
+				```
+
+	measure Subtítulo = ```
+			
+			var vTabela = ALLSELECTED('Calendar'[Ano],'Calendar'[Número da semana do Ano],'Calendar'[Semana do Ano])
+			VAR vMAX  = MAXX(vTabela, [R$ Faturamento pedidos])
+			
+			return 
+			
+			 "O valor máximo de faturamento foi de " & vMAX
+			```
+		displayFolder: Visuais
+		lineageTag: e58ae9fb-5ccd-486c-859d-b8fb9efe4ba4
+
+	measure 'Quantidade de hubs' =
+			
+			COUNTROWS(DISTINCT(Orders[hub_name]))
+		formatString: 0
+		displayFolder: Entregas
+		lineageTag: 3c956dd2-feea-4b64-b20b-84f1087f53c4
+
+	measure 'Quantidade de lojas' =
+			
+			COUNTROWS(DISTINCT(Orders[store_id]))
+		formatString: 0
+		displayFolder: Entregas
+		lineageTag: 0932b220-a551-4f8e-a3a9-e90b91fa899c
+
+	measure MaximoFaturado = ```
+			
+			 
+			 var vTabela = ALLSELECTED('Calendar'[Ano],'Calendar'[Número da semana do Ano],'Calendar'[Semana do Ano])
+			 var vValorMaximo = MAXX(vTabela, [R$ Faturamento pedidos])
+			
+			 return
+			FORMAT(vValorMaximo, "#.##")
+			
+			```
+		displayFolder: Visuais
+		lineageTag: 70e5f6d8-9176-4c6f-a389-2be504a78db4
+
+	measure 'Eixo R$ faturado' =
+			
+			FORMAT(CALCULATE(
+			    [Receita total],
+			    FILTER(ALL(Orders[order_status]),
+			    Orders[order_status] = "FINISHED"
+			    )
+			), "#.##")
+		displayFolder: Visuais
+		lineageTag: 15619095-6df0-4fd7-b4d3-63f548372d06
+
+	measure faturado =
+			
+			CALCULATE(
+			    [Receita total],
+			    FILTER(ALL(Orders[order_status]),
+			    Orders[order_status] = "FINISHED"
+			    )
+			)
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: Financeiro
+		lineageTag: 6371fc67-c50e-4422-b463-7c469819ad00
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Custo de entrega' =
+			
+			SUM(Deliveries[order_delivery_cost])
+		displayFolder: Entregas
+		lineageTag: dcef949e-1919-4168-99d5-dc1ca5fc4fee
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "R$#,#0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "R$#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "R$#,#0,.0K; -#,#0,.0K",
+				     "R$#,0.0; - #,0.0"
+				)
+				return
+				"""" & IF(FORMAT(SELECTEDMEASURE(), _Formato) = BLANK(),0, FORMAT(SELECTEDMEASURE(), _Formato)  & """")
+				```
+
+	measure '% Custo de entrega dos pedidos' = ```
+			
+			DIVIDE(
+			    [Custo de entrega], 
+			    [Receita total]
+			) 
+			```
+		displayFolder: Entregas
+		lineageTag: a68a5925-76af-4fa0-9be7-f52462cfeca8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Delivery Time' = ```
+			
+			/* Order cycle time calcula o tempo médio entre a abertura do pedido até a entrega efetiva do pedido */ 
+			VAR vSegundosTotal = AVERAGE(Deliveries[life_cycle_time]) * 86400 -- 86400 quantidade de segundos em um dia
+			VAR vHoras = INT(vSegundosTotal/3600)  -- 3600 quantidade de segundos em horas
+			VAR vMinutos = INT(MOD(vSegundosTotal,3600)/60) -- 3600/60 quantidade de segundos 
+			VAR vSegundos = INT(MOD(MOD(vSegundosTotal, 3600), 60))
+			return
+			CONVERT(vMinutos, INTEGER)
+			```
+		formatString: 00 min
+		displayFolder: Entregas
+		lineageTag: cacf3a0c-0e82-4f3a-8e15-13328d9123ce
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Ticket médio' =
+			
+			DIVIDE([R$ Faturamento pedidos], [Quantidade de pedidos])
+		displayFolder: Financeiro
+		lineageTag: 6dad394f-9c4e-4d86-ba61-cb2465396a0e
+
+		formatStringDefinition = ```
+				var _Valor = SELECTEDMEASURE()
+				var _Formato =
+				SWITCH(
+				    TRUE(),
+				    _Valor >= 100000000, "R$#,#0,,,.0B; -#,#0,,,.0B", 
+				    _Valor >= 1000000, "R$#,#0,,.0M; -#,#0,,.0M", 
+				    _Valor >= 1000, "R$#,#0,.0K; -#,#0,.0K",
+				     "R$#,0.0; - #,0.0"
+				)
+				return
+				"""" & IF(FORMAT(SELECTEDMEASURE(), _Formato) = BLANK(),0, FORMAT(SELECTEDMEASURE(), _Formato)  & """")
+				```
+
+	measure 'Quantidade de pedidos cancelados' =
+			
+			CALCULATE(
+			    COUNTROWS(DISTINCT(Deliveries[order_id])),
+			    FILTER(ALL(Deliveries[order_status]),
+			    Deliveries[order_status] = "CANCELED"
+			    )
+			)
+		formatString: #,0
+		displayFolder: Entregas
+		lineageTag: 1c7dec56-3bf4-437f-9c99-b9ceaf9687d6
+
+	measure 'Quantidade de entregas' = ```
+			
+			/* 
+			Os filtros aplicados a função traduz a necessidade de analisar apenas os pedidos que foram realmente entregues 
+			para considerar um pedido entregue é necessário que a o status do pedidos seja FINISHED e a status de delivery seja DELIVERED    
+			*/ 
+			CALCULATE(
+			    [Quantidade de pedidos],
+			    FILTER(ALL(Deliveries[order_status],Deliveries[delivery_status]),
+			    Deliveries[order_status] = "FINISHED" && Deliveries[delivery_status] = "DELIVERED"
+			    )
+			)
+			```
+		formatString: #,0
+		displayFolder: Entregas
+		lineageTag: 3fc6fc01-db46-4780-8fdd-8da5f9c9637e
+
+	measure 'Quantidade de pedidos' =
+			
+			SUM(Deliveries[quantity])
+		formatString: #,0
+		displayFolder: Entregas
+		lineageTag: 8afda813-8c06-43f9-9bed-35b43cc07b86
+
+	measure 'Barra Progresso custo de entrega' = ```
+			
+			var vReceita =
+			    [Receita total]
+			
+			var vReceitaFormatada = 
+			    FORMAT(vReceita, "R$00,00")
+			    
+			VAR vValor =            
+			    [Avg Delivery Time]
+			
+			VAR vValor_formatado =      
+			    FORMAT( vValor, "## min" ) 
+			
+			VAR vMeta =            
+			    1
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "RECEITA CANCELADA:"
+			VAR vRotulo_categoria_cor = "#3f3f3f"
+			VAR vRotulo_categoria_tam = 12
+			
+			
+			VAR vRotulo_dados_cor = "#3f3f3f"
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 120
+			
+			
+			VAR vBarra_altura = 15
+			
+			VAR vBarra_progresso_cor = "#F94F46"
+			
+			VAR vBarra_fundo_cor = "#DCDCDC"
+			VAR vBarra_fundo_opacidade = 9
+			
+			VAR vLinha_meta_larg = 3
+			VAR vLinha_meta_cor = "#3f3f3f"
+			
+			-- <rect id='f002' x='0' y='37' width='" & MIN(190, MAX(0, ROUND(131 * vValor, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_progresso_cor & "' rx='5' ry='5' />
+			
+			
+			RETURN 
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='70' viewBox='0 0 200 70' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Barra de Fundo -->
+			    <rect id='f001' x='0' y='15' width='" & MIN(190, MAX(0, ROUND(131 * vMeta, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_fundo_cor & "' opacity='0." & vBarra_fundo_opacidade & "' rx='5' ry='5' />
+			
+			    <!-- Barra de Progresso -->
+			    <rect id='f002' x='0' y='15' width='" & MIN(190, MAX(0, ROUND(131 * vValor, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_progresso_cor & "' rx='5' ry='5' />
+			
+			    <!-- Linha de Meta -->
+			    <!-- <rect id='f005' x='" & MIN(190, MAX(0, ROUND(131 * vMeta, 0))) & " ' y='11' width='" & vLinha_meta_larg & "' height='" & vBarra_altura + 10 & "' fill='" & vLinha_meta_cor & "' /> -->
+			
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='0' y='50'> " & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			
+			    <!-- Texto de Dados -->
+			    <text id='f004' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'>
+			        <tspan x='" & vRotulo_dados_posicao & "' y='50'>/ " & vValor_formatado & "</tspan>
+			    </text>
+			    <!-- Novo Texto para a Linha de Progresso -->
+			    <text id='novoTexto' fill='"& vLinha_meta_cor &"' font-family='" & vFonte &"' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'>
+			        <tspan x='" & MIN(190, MAX(0, ROUND(131 * vValor, 0))) & "' y='25'> & vRotulo_categoria_texto & </tspan>
+			    </text>
+			</svg>
+			
+			"
+			
+			```
+		displayFolder: Visuais
+		lineageTag: 3836d06e-e025-4e6e-9a30-c32e0408be9c
+
+	measure 'Receita total Deliveries' =
+			
+			SUM(Deliveries[order_amount])
+		displayFolder: Entregas
+		lineageTag: afad751c-3a3f-415c-b38e-c1171403368f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Quantidade média de pedidos' =
+			
+			DIVIDE(
+			    COUNTROWS(
+			    DISTINCT(Deliveries[order_id])
+			        ),
+			         AVERAGE(Deliveries[quantity])
+			    )
+		formatString: #,0
+		displayFolder: Entregas
+		lineageTag: 732e4621-c257-4922-94fd-d0d7fc606b31
+
+	measure 'EIXO Y LINHAS BARRAS' = ```
+			
+			var vTabela = ALLSELECTED('Horas'[Hora Num])
+			var vValorMax = MAXX(vTabela, [Quantidade média de pedidos])
+			var vDeslocamento = 1.4 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: 6d50cd62-cd01-4d67-a87c-374e3149b05b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO Y LINHAS BARRAS SECUNDARIO' = ```
+			
+			var vTabela = ALLSELECTED('Horas'[Hora Num])
+			var vValorMax = MAXX(vTabela, [On-Time Delivery])
+			var vDeslocamento = 1.4 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: a8802da2-a00b-44e5-a94d-5b4038bc50f2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Velocidade média' =
+			
+			ROUND(DIVIDE(
+			    SUM(Deliveries[delivery_distance_meters]),
+			    [Avg Delivery Time] ,
+			    0
+			),
+			0)
+		displayFolder: Entregas
+		lineageTag: d3aff647-95d4-4e44-b4d0-2b7834b34f82
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Quantidade de pedidos dentro do prazo' =
+			
+			CALCULATE(
+			    [Quantidade de pedidos],
+			    FILTER(ALL(Deliveries[is_checked]),
+			    Deliveries[is_checked] = "TRUE"
+			    )
+			)
+		formatString: #,0
+		displayFolder: Entregas
+		lineageTag: 2b73d2f6-02c7-4f7b-a950-c1abbae66ad2
+
+	measure 'On-Time Delivery' =
+			
+			/* On-time Delivery é a taxa de entregas realizadas dentro do prazo estimado */
+			DIVIDE([Quantidade de pedidos dentro do prazo], [Quantidade de entregas])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Entregas
+		lineageTag: 697246d9-0207-41ed-b671-4596dc73f98c
+
+	measure 'Quantidade de pedidos fora do prazo' =
+			
+			CALCULATE(
+			    [Quantidade de pedidos],
+			    FILTER(ALL(Deliveries[is_checked]),
+			    Deliveries[is_checked] = "FALSE"
+			    )
+			)
+		formatString: #,0
+		displayFolder: Entregas
+		lineageTag: f97a25a7-ed6e-4c85-96a3-ba05308434ec
+
+	measure 'Lojas críticas' = ```
+			
+			CALCULATE(
+			    [On-Time Delivery], 
+			    FILTER(
+			        KEEPFILTERS(ALL(Deliveries[hub_name])),
+			         [On-Time Delivery] < 0.85
+			    )
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Financeiro
+		lineageTag: e485484a-a9be-474a-a7d6-a9b46b250ecc
+
+	measure 'Hub crítico (RANKX)' = ```
+			
+			var vRankingHub = RANKX(ALL(Deliveries[hub_name]),[On-Time Delivery],,ASC,Skip)
+			RETURN 
+			CALCULATE(
+			    [On-Time Delivery],
+			    FILTER(
+			        KEEPFILTERS(VALUES(Deliveries[hub_name])),
+			        vRankingHub <= [Valor de TOPN]
+			    )
+			)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Financeiro
+		lineageTag: 9593d401-6464-4224-b27c-e622aaa5ea5c
+
+	measure 'Hub Crítico (TOPN)' =
+			
+			var vRankingHUb = RANKX(ALL(Deliveries[hub_name]), [On-Time Delivery],,ASC,Skip)
+			return
+			CALCULATE(
+			    [On-Time Delivery],
+			    KEEPFILTERS(TOPN('TOPN'[Valor de TOPN], ALL(Deliveries[hub_name]), [On-Time Delivery]))
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Financeiro
+		lineageTag: f1b86730-d362-40de-a169-f96d91f4d1ca
+
+	measure 'EIXO Y BARRAS HORIZONTAIS' = ```
+			
+			var vTabela = ALLSELECTED(Deliveries[hub_name])
+			var vValorMax = MAXX(vTabela, [On-Time Delivery])
+			var vDeslocamento = 1.4 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: 9c2f6c7c-e3ec-4f37-a74f-791a3eea4bed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Order Fill Rate' =
+			
+			/* Oder Fill Rate calcula o tempo médio para a separação de um pedido (data de abertura até data de expedição) */
+			AVERAGEX(
+			    Deliveries,
+			    DATEDIFF(Deliveries[order_moment_created], Deliveries[order_moment_in_expedition], MINUTE)
+			)
+		formatString: ## min
+		displayFolder: Entregas
+		lineageTag: 7fb93e6c-ce7a-4351-b35e-884dc9a425a2
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure '% In full' = ```
+			
+			/* 
+			In full é a taxa de pedidos entregues sem nenhuma ororrência ou devolução. 
+			Existem casos em que o pedido foi entregue e o status do pedido está como cancelados. Nestes casos consideramos que o pedido foi devolvido ou cancelado
+			*/
+			var vInFull =
+			CALCULATE(
+			    [Quantidade de pedidos],
+			    Deliveries[is_checked_in_full] = 0
+			)
+			RETURN
+			DIVIDE(vInFull, [Quantidade de pedidos])
+			```
+		formatString: 0%;-0%;0%
+		displayFolder: Entregas
+		lineageTag: 556123f1-aba7-45dd-b7eb-2dccdb810839
+
+	measure OnTime-InFull =
+			
+			[On-Time Delivery] * [% In full]
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Entregas
+		lineageTag: 219288f5-807c-4074-8512-aee2506bb199
+
+	measure 'Barra progresso entregas' = ```
+			
+			VAR vValorTempo =            
+			    [Avg Delivery Time]
+			
+			VAR vValor =            
+			    [On-Time Delivery]
+			
+			VAR vValor_formatado =      
+			    FORMAT( vValorTempo, "## min" ) 
+			
+			VAR vMeta =            
+			    0.9
+			
+			VAR vBarra =            
+			    1
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "CMV:"
+			VAR vRotulo_categoria_cor = "#3f3f3f"
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_categoria_meta = IF(ALLSELECTED(idiomas[language]) = "PT", "Meta: 90%", "Goal: 90%")
+			
+			VAR vRotulo_dados_cor = "#3f3f3f"
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 35
+			
+			
+			VAR vBarra_altura = 10
+			
+			VAR vBarra_progresso_cor = [Cor das bolhas]
+			
+			VAR vBarra_fundo_cor = "#DCDCDC"
+			VAR vBarra_fundo_opacidade = 9
+			
+			VAR vLinha_meta_larg = 1
+			VAR vLinha_meta_cor = "#3f3f3f"
+			
+			
+			RETURN 
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='70' viewBox='0 0 200 70' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			   
+			    <!-- Barra de Fundo -->
+			    <rect id='f001' x='0' y='8' width='" & MIN(190, MAX(0, ROUND(131 * vBarra, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_fundo_cor & "' opacity='0." & vBarra_fundo_opacidade & "' rx='5' ry='5' />
+			    <!-- Barra de Progresso -->
+			    <rect id='f002' x='0' y='8' width='" & MIN(190, MAX(0, ROUND(131 * vValor, 0))) & "' height='" & vBarra_altura & "' fill='" & vBarra_progresso_cor & "' rx='5' ry='5' />
+			    
+			    <!-- Linha de Meta -->
+			    <rect id='f005' x='0" & MIN( 190,  MAX( 0, ROUND( 131 * vMeta , 0 ) ) )  & " ' y='04' width='" & vLinha_meta_larg & "' height='" & vBarra_altura + 10 & "' fill='" & vLinha_meta_cor & "' />
+			    
+			    <!-- Texto da Categoria Meta -->
+			    <text id='f006' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='135' y='17'> " & vRotulo_categoria_meta & "</tspan>
+			    </text>
+			
+			    <!-- Texto 'Receita' -->
+			    <!-- <text id='receitaText' fill='"& vRotulo_categoria_cor &"' font-family='"& vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='0' y='15'>Receita:</tspan>
+			    </text> -->
+			    
+			    <!-- Texto da Categoria -->
+			    <!-- <text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='0' y='55'> " & vRotulo_categoria_texto & "</tspan>
+			    </text> -->
+			    
+			    <!-- Texto de Dados -->
+			   <!-- <text id='f004' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'>
+			        <tspan x='" & vRotulo_dados_posicao & "' y='55'>" & vValor_formatado & "</tspan> 
+			    </text> -->
+			</svg>
+			"
+			
+			```
+		displayFolder: Visuais
+		lineageTag: 3d636321-9cbb-4764-b063-277988069db8
+
+	measure 'Barra Progresso' = ```
+			
+			
+			/* --------------------------------------------------------------------------
+			DESENVOLVIDO POR JEFFERSON ALVES || DADOS CRIATIVOS 
+			
+			Caso queira aprender do ZERO a criar este código e muito outros do Absoluto zero, te convido a fazer parte do meu treinamento fechado, Lá ofereço uma instrução detalhada, guiando você em cada etapa do processo. 
+			
+			Link para iniciar essa jornada de aprendizado:
+			
+			https://bit.ly/DashsCriativos
+			
+			
+			--------------------------
+			
+			Redes Sociais (dê aquela moral galera)
+			
+			► Instagram: https://www.instagram.com/dadoscriativos_/
+			
+			► Linkedin: https://www.linkedin.com/in/jeffersonallvesneves/
+			
+			► YouTube: https://www.youtube.com/c/JeffersonAlvesDadosCriativos
+			
+			► Grupo Telegram: https://t.me/dadoscriativos
+			
+			-------------------------------------------------------------------------- */
+			
+			
+			VAR vValor =            
+			    0.5 
+			
+			VAR vValor_formatado =      
+			    FORMAT( vValor, "0%" ) 
+			
+			VAR vMeta =            
+			    1 
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Cambria "
+			
+			VAR vRotulo_categoria_texto = "Target: "
+			VAR vRotulo_categoria_cor = "#3f3f3f"
+			VAR vRotulo_categoria_tam = 12
+			
+			
+			VAR vRotulo_dados_cor = "#3f3f3f"
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 40
+			
+			
+			VAR vBarra_altura = 10
+			
+			VAR vBarra_progresso_cor = "orange"
+			
+			VAR vBarra_fundo_cor = "#6f6f6f"
+			VAR vBarra_fundo_opacidade = 9
+			
+			VAR vLinha_meta_larg = 2
+			VAR vLinha_meta_cor = "#3f3f3f"
+			
+			
+			
+			
+			
+			RETURN 
+			
+			"data:image/svg+xml;utf8,<svg width='200' height='70' viewBox='0 0 200 70' fill='none' xmlns='http://www.w3.org/2000/svg'><rect id='f001' x='0' y='37' width='190' height='" & vBarra_altura & "' fill='" & vBarra_fundo_cor & "'
+			opacity='0." & vBarra_fundo_opacidade& "' /><rect id='f002' x='0' y='37' width='" & MIN( 190,  MAX( 0, ROUND( 131 * vValor, 0 ) ) )  & "' height='" & vBarra_altura & "' fill='" & vBarra_progresso_cor & "' /><text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'><tspan x='0' y='28'> " & vRotulo_categoria_texto & "</tspan></text><text id='f004' fill='" & vRotulo_dados_cor& "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'><tspan x='" & vRotulo_dados_posicao & "' y='28'>" & vValor_formatado & "</tspan></text><rect id='f005' x='" & MIN( 190,  MAX( 0, ROUND( 131 * vMeta , 0 ) ) )  & " ' y='32' width='" & vLinha_meta_larg & "' height='" & vBarra_altura + 10 & "' fill='" & vLinha_meta_cor & "' /></svg>"
+			```
+		displayFolder: Visuais
+		lineageTag: 8229f5b1-f30f-40de-a02c-46025d67bf73
+
+	measure 'Tempo médio de vida (barras empilhadas)' = ```
+			
+			/* Order cycle time calcula o tempo médio entre a abertura do pedido até a entrega efetiva do pedido */ 
+			VAR vSegundosTotal = AVERAGE(Deliveries[life_cycle_time]) * 86400 -- 86400 quantidade de segundos em um dia
+			VAR vHoras = INT(vSegundosTotal/3600)  -- 3600 quantidade de segundos em horas
+			VAR vMinutos = INT(MOD(vSegundosTotal,3600)/60) -- 3600/60 quantidade de segundos 
+			VAR vSegundos = INT(MOD(MOD(vSegundosTotal, 3600), 60))
+			return
+			CONVERT(vMinutos, INTEGER)
+			```
+		formatString: 00 min
+		displayFolder: Entregas
+		lineageTag: e07e0eb1-877a-4b25-97bc-4f7edc396fc5
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'EIXO Y BARRAS HORIZONTAIS OnTime' = ```
+			
+			var vTabela = ALLSELECTED('Calendar'[Data])
+			var vValorMax = MAXX(vTabela, [On-Time Delivery])
+			var vDeslocamento = 1.4 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: 29126fb5-c563-4056-b074-88da2f30e51e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO Y BARRAS HORIZONTAIS OnTime 2' = ```
+			
+			var vTabela = ALLSELECTED('Calendar'[Data])
+			var vValorMax = MAXX(vTabela, [Quantidade de entregas])
+			var vDeslocamento = 1.2 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: a2e7f41e-7350-4d6b-818c-5ac127f13936
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO Y Disperção' = ```
+			
+			var vTabela = ALLSELECTED('Deliveries'[hub_name])
+			var vValorMax = MAXX(vTabela, [On-Time Delivery])
+			var vDeslocamento = 1.5 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: fe8aef0b-2dab-488d-84dc-7b020b8c89c9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO Y Disperção Min' = ```
+			
+			var vTabela = ALLSELECTED('Deliveries'[hub_name])
+			var vValorMax = minX(vTabela, [On-Time Delivery])
+			var vDeslocamento = 0
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: 6352a4fe-ab5d-474c-bb8c-6aec24adef83
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO X Disperção Min' = ```
+			
+			var vTabela = ALLSELECTED('Deliveries'[hub_name])
+			var vValorMax = minX(vTabela, [Quantidade de entregas])
+			var vDeslocamento = 0.5
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: 8b5cb813-93c1-445f-97fe-4d81c0198e36
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EIXO X Disperção' = ```
+			
+			var vTabela = ALL('Deliveries'[hub_name])
+			var vValorMax = MAXX(vTabela, [Quantidade de entregas])
+			var vDeslocamento = 1.1
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: 9e66da93-d725-4775-971d-5d7332a226c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cor das bolhas' =
+			
+			IF([On-Time Delivery] < 0.9, "#F94F46", "#21A0AA")
+		displayFolder: Visuais
+		lineageTag: 11feb620-53af-4ac3-99cd-b5587d5bbf7b
+
+	measure 'EIXO Y BARRAS HORIZONTAIS por HUB' = ```
+			
+			var vTabela = ALLSELECTED(Deliveries[hub_name])
+			var vValorMax = MAXX(vTabela, [Tempo médio de vida (barras empilhadas)])
+			var vDeslocamento = 1.5 -- 40% do valor máximo
+			return  
+			vValorMax * vDeslocamento
+			```
+		displayFolder: Visuais
+		lineageTag: 4b01822a-2f19-4ba0-9c7c-30c267a00958
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'card.QuantidadeDeEntregadas' = ```
+			
+			VAR vValorTempo =            
+			    [Quantidade de pedidos dentro do prazo]
+			
+			
+			VAR vValor_formatado =      
+			    FORMAT( vValorTempo, "#,##0" ) 
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			VAR vFonteCategoria = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = IF(ALLSELECTED(idiomas[language]) = "PT", "Qtde. Entregas:", "Qty Delivered:")
+			-- VAR vRotulo_categoria_texto_eixo_x = IF(ALLSELECTED(idiomas[language]) = "PT", 85, 80)
+			VAR vRotulo_categoria_cor = "#3f3f3f"
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_dados_cor = "#000000"
+			VAR vRotulo_dados_tam = 16
+			VAR vRotulo_dados_peso = 700
+			VAR vRotulo_dados_posicao = IF(ALLSELECTED(idiomas[language]) = "PT", 85, 80)
+			
+			
+			
+			
+			RETURN 
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='70' viewBox='0 0 200 70' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			   
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='0' y='17'> " & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			    
+			    <!-- Texto de Dados -->
+			   <text id='f004' fill='" & vRotulo_dados_cor & "' font-family='" & vFonteCategoria & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'>
+			        <tspan x='" & vRotulo_dados_posicao & "' y='17'>" & vValor_formatado & "</tspan> 
+			    </text>
+			</svg>
+			"
+			
+			```
+		displayFolder: Visuais
+		lineageTag: 4a5ba37c-494b-4f62-8949-83750b6920ce
+
+	measure 'card.QuantidadeDeEntregadasAtrasadas' = ```
+			
+			VAR vValorTempo =            
+			    [Quantidade de pedidos fora do prazo]
+			
+			
+			VAR vValor_formatado =      
+			    FORMAT( vValorTempo, "#,##0" ) 
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			VAR vFonteCategoria = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = IF(ALLSELECTED(idiomas[language]) = "PT", "Qtde. Atrasos:", "Qty Late Delivered:")
+			VAR vRotulo_categoria_cor = "#3f3f3f"
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_dados_cor = "#000000"
+			VAR vRotulo_dados_tam = 16
+			VAR vRotulo_dados_peso = 700
+			VAR vRotulo_dados_posicao = IF(ALLSELECTED(idiomas[language]) = "PT", 78, 105)
+			
+			
+			
+			
+			RETURN 
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='70' viewBox='0 0 200 70' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			   
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='400'>
+			        <tspan x='0' y='17'> " & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			    
+			    <!-- Texto de Dados -->
+			   <text id='f004' fill='" & vRotulo_dados_cor & "' font-family='" & vFonteCategoria & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "'>
+			        <tspan x='" & vRotulo_dados_posicao & "' y='17'>" & vValor_formatado & "</tspan> 
+			    </text>
+			</svg>
+			"
+			
+			```
+		displayFolder: Visuais
+		lineageTag: 5ef5a5aa-cc2c-499b-b394-66903710a5bf
+
+	measure 'OnTime-InFull MoM%' = ```
+			
+			VAR __PREV_MONTH = CALCULATE([OnTime-InFull], DATEADD('Calendar'[Data], -1, MONTH))
+			RETURN
+				DIVIDE([OnTime-InFull] - __PREV_MONTH, __PREV_MONTH) 
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d21736bd-4f7e-4abc-a425-8a60f557a04c
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "MonthOverMonth",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	measure 'Tempo médio de atraso MoM%' =
+			
+			VAR __PREV_MONTH = CALCULATE([Tempo médio de vida], DATEADD('Calendar'[Data], -1, MONTH))
+			RETURN
+				DIVIDE([Tempo médio de vida] - __PREV_MONTH, __PREV_MONTH)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 13fe2f0f-e782-4130-9008-bd26bd8b2653
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "MonthOverMonth",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	measure 'Tempo médio de ciclo do pedido MoM%' =
+			
+			VAR __PREV_MONTH =
+				CALCULATE(
+					[Tempo médio de ciclo do pedido com formato decimal],
+					DATEADD('Calendar'[Data], -1, MONTH)
+				)
+			RETURN
+				DIVIDE([Tempo médio de ciclo do pedido com formato decimal] - __PREV_MONTH, __PREV_MONTH)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5712378a-27e7-471b-a535-d9ca3f98ca66
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "MonthOverMonth",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	measure 'Avg Late Time' = ```
+			
+			/* Order cycle time calcula o tempo médio entre a abertura do pedido até a entrega efetiva do pedido */ 
+			VAR vSegundosTotal = AVERAGE(Deliveries[late_time_delivery]) * 86400 -- 86400 quantidade de segundos em um dia
+			VAR vHoras = INT(vSegundosTotal/3600)  -- 3600 quantidade de segundos em horas
+			VAR vMinutos = INT(MOD(vSegundosTotal,3600)/60) -- 3600/60 quantidade de segundos 
+			VAR vSegundos = INT(MOD(MOD(vSegundosTotal, 3600), 60))
+			return
+			CONVERT(vMinutos, INTEGER)
+			```
+		formatString: 00 min
+		lineageTag: 596cc8a3-ea15-4723-8e57-aa2653122e9b
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'título on-time delivery cartão' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "On-Time Delivery", "On-Time Delivery Rate")
+		lineageTag: 3e282141-8573-41f4-8890-8471ab448b18
+
+	measure 'título tempo medico de vida cartão' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Média de vida", "Life cycle time")
+		lineageTag: 1b044f21-a6a5-4c0e-a27b-665759138099
+
+	measure 'título tempo atraso de vida cartão' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Média de atraso", "Avg Late Time")
+		lineageTag: 576dcb03-4e06-4bd2-92c1-c5e095fc8052
+
+	measure 'título cidade segmentação' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Cidade", "City")
+		lineageTag: fa97ff0f-b34d-4a58-b71b-26bb054ff44a
+
+	measure 'título mes segmentação' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Mês", "Month")
+		lineageTag: dfe22005-ef8f-4692-adf1-b32dea704e86
+
+	measure 'título entregas e atrasos por hub' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Tempo médio de entrega e atraso por HUB", "On-Time Delivery and Avg Late Time")
+		lineageTag: c64c9440-2111-49ee-abb0-e2585399c467
+
+	measure 'título desempenho por hub' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Desempenho por HUB", "HUB Delivery Avarage")
+		lineageTag: 0a94cfb2-f24c-4a22-a772-209687d1dd13
+
+	measure 'título home' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Mergulhe nos principais indicadores do seu negócio", "Dive-into your key performance indicators")
+		lineageTag: 0011b152-35e1-47a5-814b-167a56b2a85b
+
+	measure 'título entregas' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Acompanhe seu desempenho logístico", "Track your logistics performance")
+		lineageTag: 4895ce12-b850-4286-9997-6b02067fcaec
+
+	measure 'título por hora' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Acompanhamento de On-Time Delivery por hora", "Orders and On-Time Rate Delivery by hour")
+		lineageTag: e2527079-2277-49ea-9209-2aecdcac57c8
+
+	measure 'Descrição botão home' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Página inicial", "Home")
+		lineageTag: 17df9e70-1a26-4cd6-97f2-138d982ff8e9
+
+	measure 'Descrição botão entregas' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Entregas", "Delivery")
+		lineageTag: 058724f8-ded3-49da-99dd-09102e5b4b01
+
+	measure 'Descrição botão financeiro' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Financeiro", "Finance")
+		lineageTag: 2e9ad471-f815-4ec0-8c13-1f3b47c8797d
+
+	measure 'título recolher' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Recolher", "Close")
+		lineageTag: 99a8b5ad-6a27-4324-b630-6717d51985cc
+
+	measure 'Tempo médio de atraso em segundos' =
+			
+			/* Oder Fill Rate calcula o tempo médio para a separação de um pedido (data de abertura até data de expedição) */
+			CALCULATE(
+			    AVERAGEX(
+			        Deliveries,
+			        DATEDIFF(Deliveries[order_moment_estimated], Deliveries[order_moment_finished],SECOND)),
+			        FILTER(ALL(Deliveries[is_checked]),
+			        Deliveries[is_checked] = "FALSE")
+			)
+		displayFolder: Entregas
+		lineageTag: 863b7b2a-ef34-469b-9eb3-abd7aa9b29a0
+
+		formatStringDefinition = "0.00" & " seg"
+
+	measure 'Tempo médio de ciclo do pedido com formato decimal' = ```
+			
+			/* Order cycle time calcula o tempo médio entre a abertura do pedido até a entrega efetiva do pedido */ 
+			VAR vSegundosTotal = AVERAGE(Deliveries[life_cycle_time]) * 86400 -- 86400 quantidade de segundos em um dia
+			VAR vHoras = (vSegundosTotal/3600)  -- 3600 quantidade de segundos em horas
+			VAR vMinutos = (MOD(vSegundosTotal,3600)/60) -- 3600/60 quantidade de segundos 
+			VAR vSegundos = (MOD(MOD(vSegundosTotal, 3600), 60))
+			return vMinutos
+			```
+		displayFolder: Entregas
+		lineageTag: 6e8c1b22-3dbf-4d04-b059-3e268faca278
+
+		formatStringDefinition = "0.00" & " min"
+
+	measure 'Tempo médio de ciclo do pedido mês passado' =
+			
+			CALCULATE(
+					[Tempo médio de ciclo do pedido com formato decimal],
+					DATEADD('Calendar'[Data], -1, MONTH)
+				)
+		lineageTag: 318c4020-12d6-4e7e-9266-233f6640709a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'OnTime-InFull mês passado' =
+			
+			CALCULATE([OnTime-InFull], DATEADD('Calendar'[Data], -1, MONTH))
+		lineageTag: c7929dec-62a8-4197-9f18-df4047b6e475
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tempo médio de atraso mês passado' = CALCULATE([Tempo médio de vida (barras empilhadas)], DATEADD('Calendar'[Data], -1, MONTH))
+		lineageTag: 71a40f1b-673c-40e8-84a4-e4c5b5f09b77
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Comparativo MoM Ot-In' = ```
+			
+			VAR vValor = [OnTime-InFull MoM%]
+			VAR vValor_formatado = FORMAT(vValor, "0.00%") 
+			VAR vMeta = 1
+			VAR vCor = 
+			    IF(vValor < 0, "#EF5753",
+			        IF(vValor = 0, "#FFD771", "#75BB92"))
+			
+			VAR vDirecaoFlecha = 
+			    IF(vValor > 0, "&#9650;", 
+			        IF(vValor < 0, "&#9660;", "="))
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "MoM:"
+			VAR vRotulo_categoria_cor = vCor
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_dados_cor = vCor
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 110
+			
+			VAR vBarra_altura = 15
+			VAR vBarra_progresso_cor = "#21A0AA"
+			VAR vBarra_fundo_opacidade = 2
+			VAR vLinha_meta_larg = 3
+			VAR vLinha_meta_cor = "#3f3f3f"
+			VAR vCor_fundo = vCor
+			
+			RETURN
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='80' viewBox='0 0 200 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Retângulo de Fundo -->
+			   <--! <rect id='f001' x='0' y='15' width='190' height='" & vBarra_altura & "' fill='" & vCor_fundo & "' opacity='0." & vBarra_fundo_opacidade & "' rx='5' ry='5' /> -->
+			
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='" & vRotulo_categoria_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='700'>
+			        <tspan x='15' y='27'>" & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			
+			    <!-- Linha de Meta -->
+			    <!-- <rect id='f005' x='" & MIN(190, MAX(0, ROUND(131 * vMeta, 0))) & " ' y='11' width='" & vLinha_meta_larg & "' height='" & vBarra_altura + 10 & "' fill='" & vLinha_meta_cor & "' /> -->
+			
+			    <!-- Texto de Seta para Cima, para Baixo ou Igual e Dados -->
+			    <text id='f006' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "' text-anchor='middle' dominant-baseline='middle'>
+			        <tspan x='100' y='24'>" & vDirecaoFlecha & " " & vValor_formatado & "</tspan>
+			    </text>
+			</svg>
+			"
+			```
+		displayFolder: Visuais
+		lineageTag: 04aef331-8530-4d43-a652-29e9f4dc8f24
+
+	measure 'Comparativo MoM tempo de atraso' = ```
+			
+			VAR vValor = [Tempo médio de atraso MoM%]
+			VAR vValor_formatado = FORMAT(vValor, "0.00%") 
+			VAR vMeta = 1
+			VAR vCor = 
+			    IF(vValor < 0,  "#75BB92",
+			        IF(vValor = 0, "#000000","#EF5753"))
+			
+			VAR vDirecaoFlecha = 
+			    IF(vValor > 0, "&#9650;", 
+			        IF(vValor < 0, "&#9660;", "--"))
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "MoM:"
+			VAR vRotulo_categoria_cor = vCor
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_dados_cor = vCor
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 110
+			
+			VAR vBarra_altura = 15
+			VAR vBarra_progresso_cor = "#21A0AA"
+			VAR vBarra_fundo_opacidade = 2
+			VAR vLinha_meta_larg = 3
+			VAR vLinha_meta_cor = "#3f3f3f"
+			VAR vCor_fundo = vCor
+			
+			RETURN
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='80' viewBox='0 0 200 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='#000000' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='700'>
+			        <tspan x='' y='20'>" & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			    <!-- Texto de Seta para Cima, para Baixo ou Igual e Dados -->
+			    <text id='f006' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "' text-anchor='middle' dominant-baseline='middle'>
+			        <tspan x='70' y='17'>" & vDirecaoFlecha & " " & vValor_formatado & "</tspan>
+			    </text>
+			</svg>
+			"
+			```
+		displayFolder: Visuais
+		lineageTag: 8a3b2d78-1598-47dd-a847-6a486c81e225
+
+	measure 'Comparativo MoM ciclo do pedido' = ```
+			
+			VAR vValor = [Tempo médio de ciclo do pedido MoM%]
+			VAR vValor_formatado = FORMAT(vValor, "0.00%") 
+			
+			VAR vCor = 
+			    IF(vValor < 0, "#75BB92" ,
+			        IF(vValor = 0, "#000000","#EF5753"))
+			
+			VAR vDirecaoFlecha = 
+			    IF(vValor > 0, "&#9650;", 
+			        IF(vValor < 0, "&#9660;", "--"))
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "MoM:"
+			VAR vRotulo_categoria_cor = vCor
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_dados_cor = vCor
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 1000000
+			
+			
+			VAR vCor_fundo = vCor
+			
+			RETURN
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='80' viewBox='0 0 200 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='#000000' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='700'>
+			        <tspan x='' y='20'>" & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			    <!-- Texto de Seta para Cima, para Baixo ou Igual e Dados -->
+			    <text id='f006' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "' text-anchor='middle' dominant-baseline='middle'>
+			        <tspan x='70' y='17'>" & vDirecaoFlecha & " " & vValor_formatado & "</tspan>
+			    </text>
+			</svg>
+			"
+			```
+		displayFolder: Visuais
+		lineageTag: b601d859-2f47-47f1-844c-e78f039ebb07
+
+	measure 'título OnTime - InFull cartão' = ```
+			
+			VAR vTitulo =
+			    IF(ALLSELECTED(idiomas[language]) = "PT", "On-Time & In-Full Delivery", "On-Time & In-Full Rate Delivery")
+			RETURN  
+			    vTitulo
+			```
+		lineageTag: 7ca83b27-bdcb-43b3-9ab0-894d601ff00e
+
+	measure 'título tempo médio de retraso cartão' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Tempo médio de retraso", "Average delay time")
+		lineageTag: 6182c142-30b4-42e4-9151-eaef3efb97b9
+
+	measure 'título tempo médio de ciclo do pedido cartão' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Tempo médio de ciclo do pedido", "Average order cycle time")
+		lineageTag: e3cc082f-486a-41ca-bb5e-85680adfe0c8
+
+	measure meta = 0.9
+		lineageTag: b6d01bd3-0213-4f53-8e94-5bdff0637b5b
+
+		formatStringDefinition =
+				VAR meta = SELECTEDMEASURE()
+				RETURN
+				    "meta: " & FORMAT(meta, "0%")
+
+	measure 'título quantidade entregas cartão' =
+			
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Qtde. Entregas", "Qtdy Delivery")
+		lineageTag: d0f061fe-29a5-4dcf-96da-d9ab4d5ea14c
+
+	measure 'título quantidade atraso' = ```
+			
+			 IF(SELECTEDVALUE(idiomas[language]) = "PT", "Qtde. Atrasos", "Qty Late")
+			```
+		lineageTag: c0eea947-db4a-4bd0-940e-2375d50bec96
+
+	measure 'Comparativo MoM quantidade de entregas' = ```
+			
+			VAR vValor = [Quantidade de pedidos dentro do prazo MoM%]
+			VAR vValor_formatado = FORMAT(vValor, "0.00%") 
+			VAR vMeta = 1
+			VAR vCor = 
+			    IF(vValor < 0, "#EF5753",
+			        IF(vValor = 0, "#000000", "#75BB92"))
+			
+			VAR vDirecaoFlecha = 
+			    IF(vValor > 0, "&#9650;", 
+			        IF(vValor < 0, "&#9660;", "--"))
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "MoM:"
+			VAR vRotulo_categoria_cor = vCor
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_dados_cor = vCor
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 110
+			
+			VAR vBarra_altura = 15
+			VAR vBarra_progresso_cor = "#21A0AA"
+			VAR vBarra_fundo_opacidade = 2
+			VAR vLinha_meta_larg = 3
+			VAR vLinha_meta_cor = "#3f3f3f"
+			VAR vCor_fundo = vCor
+			
+			RETURN
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='80' viewBox='0 0 200 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='#000000' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='700'>
+			        <tspan x='' y='20'>" & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			    <!-- Texto de Seta para Cima, para Baixo ou Igual e Dados -->
+			    <text id='f006' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "' text-anchor='middle' dominant-baseline='middle'>
+			        <tspan x='70' y='17'>" & vDirecaoFlecha & " " & vValor_formatado & "</tspan>
+			    </text>
+			</svg>
+			"
+			```
+		lineageTag: e95de6cd-9db2-42f8-81d0-170df80e5755
+
+	measure 'Comparativo MoM quantidade fora do prazo' = ```
+			
+			VAR vValor = [Quantidade de pedidos fora do prazo MoM%]
+			VAR vValor_formatado = FORMAT(vValor, "0.00%") 
+			
+			VAR vCor = 
+			    IF(vValor < 0, "#75BB92",
+			        IF(vValor = 0, "#000000", "#EF5753"))
+			
+			VAR vDirecaoFlecha = 
+			    IF(vValor > 0, "&#9650;", 
+			        IF(vValor < 0, "&#9660;", "--"))
+			
+			--------------------------------
+			-- FORMATAÇÕES   
+			--------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vRotulo_categoria_texto = "MoM:"
+			VAR vRotulo_categoria_cor = vCor
+			VAR vRotulo_categoria_tam = 12
+			
+			VAR vRotulo_dados_cor = vCor
+			VAR vRotulo_dados_tam = 15
+			VAR vRotulo_dados_peso = 600
+			VAR vRotulo_dados_posicao = 1000000
+			
+			
+			VAR vCor_fundo = vCor
+			
+			RETURN
+			
+			"data:image/svg+xml;utf8,
+			<svg width='200' height='80' viewBox='0 0 200 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			    <!-- Texto da Categoria -->
+			    <text id='f003' fill='#000000' font-family='" & vFonte & "' font-size='" & vRotulo_categoria_tam & "' font-weight='700'>
+			        <tspan x='' y='20'>" & vRotulo_categoria_texto & "</tspan>
+			    </text>
+			    <!-- Texto de Seta para Cima, para Baixo ou Igual e Dados -->
+			    <text id='f006' fill='" & vRotulo_dados_cor & "' font-family='" & vFonte & "' font-size='" & vRotulo_dados_tam & "' font-weight='" & vRotulo_dados_peso & "' text-anchor='middle' dominant-baseline='middle'>
+			        <tspan x='70' y='17'>" & vDirecaoFlecha & " " & vValor_formatado & "</tspan>
+			    </text>
+			</svg>
+			"
+			```
+		lineageTag: e585a522-45fc-45dc-8a8d-31a63f54b635
+
+	measure 'Tempo médio de atraso (barras empilhadas)' = ```
+			
+			/* Order cycle time calcula o tempo médio entre a abertura do pedido até a entrega efetiva do pedido */ 
+			VAR vSegundosTotal = AVERAGE(Deliveries[late_time_delivery]) * 86400 -- 86400 quantidade de segundos em um dia
+			VAR vHoras = INT(vSegundosTotal/3600)  -- 3600 quantidade de segundos em horas
+			VAR vMinutos = INT(MOD(vSegundosTotal,3600)/60) -- 3600/60 quantidade de segundos 
+			VAR vSegundos = INT(MOD(MOD(vSegundosTotal, 3600), 60))
+			return
+			CONVERT(vMinutos, INTEGER)
+			```
+		formatString: 00 min
+		lineageTag: dd1244a8-d959-41b3-8264-e778b9af311d
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Tempo médio de vida' = ```
+			
+			/* Order cycle time calcula o tempo médio entre a abertura do pedido até a entrega efetiva do pedido */ 
+			VAR vSegundosTotal = AVERAGE(Deliveries[life_cycle_time]) * 86400 -- 86400 quantidade de segundos em um dia
+			VAR vHoras = INT(vSegundosTotal/3600)  -- 3600 quantidade de segundos em horas
+			VAR vMinutos = INT(MOD(vSegundosTotal,3600)/60) -- 3600/60 quantidade de segundos 
+			VAR vSegundos = INT(MOD(MOD(vSegundosTotal, 3600), 60))
+			return
+			CONVERT(vMinutos & RIGHT("0"&vSegundos,2), INTEGER)
+			```
+		formatString: 0
+		lineageTag: 2d1b37d0-6ac4-4e55-b74e-37fbb26506e6
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Origem = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Coluna1 = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Origem,{{"Coluna1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+

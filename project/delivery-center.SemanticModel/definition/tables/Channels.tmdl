@@ -1,0 +1,39 @@
+table Channels
+	lineageTag: c577aab6-7942-47f0-bfb4-17f4b701e88d
+
+	column channel_id
+		dataType: int64
+		formatString: 0
+		lineageTag: aa47ebe2-469e-42ff-a198-05388311fbd6
+		summarizeBy: none
+		sourceColumn: channel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_name
+		dataType: string
+		lineageTag: 31ff01d0-155b-4c57-a162-7969cd281a11
+		summarizeBy: none
+		sourceColumn: channel_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_type
+		dataType: string
+		lineageTag: 3eba2dcc-92bc-4831-9aaa-1051468c3d7d
+		summarizeBy: none
+		sourceColumn: channel_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Channels = m
+		mode: import
+		source =
+				let
+				    Origem = Sql.Database("localhost", "master", [CreateNavigationProperties=false]),
+				    DELIVERY_channels = Origem{[Schema="DELIVERY",Item="CHANNELS"]}[Data]
+				in
+				    DELIVERY_channels
+
+	annotation PBI_ResultType = Table
+
