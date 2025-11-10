@@ -46,9 +46,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
 
-      - name: Install Microsoft Fabric CLI
+      - name: Verify Fabric CLI Installation
         run: |
-          npm install -g @microsoft/fabric-cli
+          fab --version
+          which fab
 
       # ==============================================================
       # 4️⃣ Determinar ambiente com base na branch de destino do merge
