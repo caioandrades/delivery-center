@@ -4,7 +4,7 @@ import os
 import sys
 
 # ==========================================================
-# 🌐 Mapeamento de workspaces por ambiente
+#  Mapeamento de workspaces por ambiente
 # ==========================================================
 WORKSPACE_MAP = {
     "develop": "Nomos BI DEV",
@@ -14,7 +14,7 @@ WORKSPACE_MAP = {
 
 
 # ==========================================================
-# 🔐 Função auxiliar para validar variáveis de ambiente
+# Função auxiliar para validar variáveis de ambiente
 # ==========================================================
 def validate_env_vars():
     required_vars = ["FABRIC_CLIENT_ID", "FABRIC_CLIENT_SECRET", "FABRIC_TENANT_ID"]
@@ -26,7 +26,7 @@ def validate_env_vars():
 
 
 # ==========================================================
-# 🚀 Função principal de deploy
+#  Função principal de deploy
 # ==========================================================
 def run_fabric_cli(workspace: str):
     print(f"📦 Iniciando deploy no workspace: {workspace}")
@@ -52,7 +52,7 @@ def run_fabric_cli(workspace: str):
 
 
 # ==========================================================
-# 🧭 Ponto de entrada principal
+#  Ponto de entrada principal
 # ==========================================================
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script de Deploy para Power BI Fabric")
