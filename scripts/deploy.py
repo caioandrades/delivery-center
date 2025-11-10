@@ -59,8 +59,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--environment",
         required=True,
-        choices=["dev", "uat", "main"],
-        help="Ambiente de deploy: dev, uat ou main"
+        choices=["develop", "staggin", "master"],
+        help="Ambiente de deploy: develop, staggin ou master"
     )
 
     args = parser.parse_args()
