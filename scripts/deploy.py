@@ -59,7 +59,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--environment",
         required=True,
-        choices=["develop", "staggin", "master"],
+        choices=["develop", "stagging", "master"],
         help="Ambiente de deploy: develop, staggin ou master"
     )
 
