@@ -32,7 +32,7 @@ def run_fabric_cli(workspace: str):
     print(f"📦 Iniciando deploy no workspace: {workspace}")
 
     cmd = [
-        "fab", "deploy",
+        "fabric", "deploy",
         "--workspace", workspace,
         "--source", "./src",
         "--spn-client-id", os.getenv("FABRIC_CLIENT_ID"),
