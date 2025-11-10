@@ -46,7 +46,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          
+
       - name: Verify Fabric CLI Installation
         run: |
           fab --version
@@ -66,7 +66,7 @@ jobs:
           elif [[ "$TARGET_BRANCH" == "stagging" ]]; then
             echo "environment=stagging" >> $GITHUB_OUTPUT
           elif [[ "$TARGET_BRANCH" == "master" ]]; then
-            echo "environment=main" >> $GITHUB_OUTPUT
+            echo "environment=master" >> $GITHUB_OUTPUT
           else
             echo "❌ Branch inválida para deploy: $TARGET_BRANCH"
             exit 1
