@@ -51,6 +51,8 @@ jobs:
         run: |
           fab --version
           which fab
+          fab --version
+          which fab
 
       # ==============================================================
       # 4️⃣ Determinar ambiente com base na branch de destino do merge
