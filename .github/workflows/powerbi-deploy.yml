@@ -1,12 +1,12 @@
 name: CI/CD - Power BI Fabric Deployment
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - develop
       - stagging
       - master
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,6 +15,9 @@ jobs:
   deploy:
     name: Deploy to Power BI Fabric
     runs-on: ubuntu-latest
+
+    # Só executa o job se o PR foi realmente mergeado
+    if: github.event.pull_request.merged == true
 
     env:
       # 🔐 Variáveis de ambiente seguras (armazenadas em GitHub Secrets)
@@ -36,28 +39,34 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
       # ==============================================================
-      # 3️⃣ Instalar dependências (se necessário)
+      # 3️⃣ Instalar dependências (incluindo Fabric CLI)
       # ==============================================================
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
 
+      - name: Install Microsoft Fabric CLI
+        run: |
+          npm install -g @microsoft/fabric-cli
+
       # ==============================================================
-      # 4️⃣ Determinar ambiente de destino com base na branch
+      # 4️⃣ Determinar ambiente com base na branch de destino do merge
       # ==============================================================
       - name: Define deployment environment
         id: env
         run: |
-          if [[ "${GITHUB_REF##*/}" == "develop" ]]; then
+          TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+          echo "🧭 Target branch: $TARGET_BRANCH"
+
+          if [[ "$TARGET_BRANCH" == "develop" ]]; then
             echo "environment=develop" >> $GITHUB_OUTPUT
-          elif [[ "${GITHUB_REF##*/}" == "stagging" ]]; then
+          elif [[ "$TARGET_BRANCH" == "stagging" ]]; then
             echo "environment=stagging" >> $GITHUB_OUTPUT
-          elif [[ "${GITHUB_REF##*/}" == "main" ]]; then
+          elif [[ "$TARGET_BRANCH" == "master" ]]; then
             echo "environment=main" >> $GITHUB_OUTPUT
           else
-            echo "❌ Branch inválida para deploy: ${GITHUB_REF##*/}"
+            echo "❌ Branch inválida para deploy: $TARGET_BRANCH"
             exit 1
           fi
 
@@ -69,7 +78,6 @@ jobs:
         run: |
           echo "🚀 Iniciando deploy para o ambiente: ${{ steps.env.outputs.environment }}"
           python deploy.py --environment ${{ steps.env.outputs.environment }}
-
 
       # ==============================================================
       # 6️⃣ Confirmação do processo
