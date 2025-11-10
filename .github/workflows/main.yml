@@ -65,9 +65,11 @@ jobs:
       # 5️⃣ Executar o script de deploy
       # ==============================================================
       - name: Run deploy script
+        working-directory: scripts
         run: |
           echo "🚀 Iniciando deploy para o ambiente: ${{ steps.env.outputs.environment }}"
           python deploy.py --environment ${{ steps.env.outputs.environment }}
+
 
       # ==============================================================
       # 6️⃣ Confirmação do processo
