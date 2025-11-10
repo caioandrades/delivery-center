@@ -32,16 +32,18 @@ jobs:
 
       - name: Set environment variables
         env:
-          FABABRIC_CLIENT_ID: ${{ secrets.FAB_CLIENT_ID }}
-          FABABRIC_TENANT_ID: ${{ secrets.FAB_TENANT_ID }}
+          FABRIC_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID }}
+          FABRIC_CLIENT_SECRET: ${{ secrets.FABRIC_CLIENT_SECRET }}
+          FABRIC_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}
+          
         run: |
           echo "Environment variables set."
 
       - name: Log in to Fabric CLI
         env:
-          FABRIC_CLIENT_ID: ${{ secrets.FAB_CLIENT_ID }}
-          FABRIC_TENANT_ID: ${{ secrets.FAB_TENANT_ID }}
+        
+          FABRIC_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID }}
+          FABRIC_CLIENT_SECRET: ${{ secrets.FABRIC_CLIENT_SECRET }}
+          FABRIC_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}
         run: |
-          fab config set fab_encryption_fallback_enabled true
-          FED_TOKEN=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange" | jq -r '.value')
-          fab auth login -t $FAB_TENANT_ID -u $FAB_CLIENT_ID --federated-token $FED_TOKEN
+             fab auth login -u $secrets.FABRIC_CLIENT_ID -p $FABRIC_CLIENT_SECRET --tenant $FABRIC_TENANT_ID
