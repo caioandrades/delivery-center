@@ -5,7 +5,7 @@ from utils import *
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("--spn-auth", action="store_true", default=True)
-parser.add_argument("--environment", default="main")
+parser.add_argument("--environment", default="master")
 parser.add_argument("--config-file", default="./config.json")
 parser.add_argument("--capacity", default=None, help="Capacity name")
 parser.add_argument("--workspace", default=None, help="Workspace name")
@@ -45,7 +45,7 @@ workspace_id = create_workspace(workspace_name=workspace_name, capacity_name=cap
 
 # Deploy semantic model
 semanticmodel_id = deploy_item(
-    "src/delivery-center-cicd.SemanticModel",
+    "src/delivery-center.SemanticModel",
     workspace_name=workspace_name,
     find_and_replace={
         (
