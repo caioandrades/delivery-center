@@ -14,7 +14,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Delivery Center Localização (1).svg'"
+                    "Value": "'Delivery Center Localização.svg'"
                   }
                 }
               },
@@ -23,14 +23,14 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "Delivery_Center_Localiza__o_(17757192036227917.svg"
+                    "ItemName": "Delivery_Center_Localiza__o06649851212379354.svg"
                   }
                 }
               },
               "scaling": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Normal'"
+                    "Value": "'Fill'"
                   }
                 }
               }

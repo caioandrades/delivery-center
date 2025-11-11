@@ -3,7 +3,7 @@
   "name": "c92615fe2b13682a6d44",
   "position": {
     "x": 1655.0124688279302,
-    "y": 21.546134663341647,
+    "y": 33.665835411471306,
     "z": 1000,
     "height": 115.81047381546135,
     "width": 201.99501246882792
@@ -115,13 +115,6 @@
                   }
                 ]
               }
-            },
-            "selfFilterEnabled": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
             }
           }
         }
@@ -158,7 +151,7 @@
             "textSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "12D"
                 }
               }
             },
@@ -166,6 +159,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#252423'"
+                    }
+                  }
                 }
               }
             }
@@ -212,7 +216,7 @@
             "textSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "11D"
                 }
               }
             },

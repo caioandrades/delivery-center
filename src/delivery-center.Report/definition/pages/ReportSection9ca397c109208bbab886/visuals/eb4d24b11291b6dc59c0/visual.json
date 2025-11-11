@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "eb4d24b11291b6dc59c0",
   "position": {
-    "x": 288.17955112219454,
-    "y": 152.16957605985039,
+    "x": 296.25935162094754,
+    "y": 154.18952618453878,
     "z": 4000,
     "height": 168.32917705735662,
-    "width": 305.68578553615959,
+    "width": 285.4862842892768,
     "tabOrder": 3000
   },
   "visual": {
@@ -104,6 +104,44 @@
                 }
               }
             }
+          }
+        },
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "36D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.On-Time Delivery"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "Medidas.On-Time Delivery"
           }
         }
       ],
@@ -208,7 +246,14 @@
             "size": {
               "expr": {
                 "Literal": {
-                  "Value": "169L"
+                  "Value": "250L"
+                }
+              }
+            },
+            "padding": {
+              "expr": {
+                "Literal": {
+                  "Value": "15L"
                 }
               }
             }
@@ -355,6 +400,17 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }

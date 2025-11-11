@@ -126,6 +126,25 @@
                   "Value": "50L"
                 }
               }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
             }
           }
         }
@@ -136,14 +155,14 @@
             "strokeWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "4D"
+                  "Value": "3D"
                 }
               }
             },
             "lineChartType": {
               "expr": {
                 "Literal": {
-                  "Value": "'linear'"
+                  "Value": "'smooth'"
                 }
               }
             },
@@ -193,6 +212,20 @@
               "expr": {
                 "Literal": {
                   "Value": "'miter'"
+                }
+              }
+            },
+            "interpolationSmooth": {
+              "expr": {
+                "Literal": {
+                  "Value": "'cardinal'"
+                }
+              }
+            },
+            "interpolationSmoothParam": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
                 }
               }
             }
@@ -293,6 +326,30 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
+                }
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            },
+            "secLabelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
                 }
               }
             }
@@ -502,6 +559,13 @@
                   "Value": "11D"
                 }
               }
+            },
+            "legendMarkerRendering": {
+              "expr": {
+                "Literal": {
+                  "Value": "'markerOnly'"
+                }
+              }
             }
           }
         }
@@ -582,6 +646,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'Heading3'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }
