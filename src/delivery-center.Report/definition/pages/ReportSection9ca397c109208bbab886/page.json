@@ -3,8 +3,8 @@
   "name": "ReportSection9ca397c109208bbab886",
   "displayName": "Entregas",
   "displayOption": "FitToPage",
-  "height": 720,
-  "width": 1280,
+  "height": 1080,
+  "width": 1920,
   "objects": {
     "background": [
       {
@@ -14,7 +14,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'a.svg'"
+                    "Value": "'Delivery Center Localização (1).svg'"
                   }
                 }
               },
@@ -23,14 +23,14 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "a46965688399976435.svg"
+                    "ItemName": "Delivery_Center_Localiza__o_(17757192036227917.svg"
                   }
                 }
               },
               "scaling": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Fit'"
+                    "Value": "'Normal'"
                   }
                 }
               }

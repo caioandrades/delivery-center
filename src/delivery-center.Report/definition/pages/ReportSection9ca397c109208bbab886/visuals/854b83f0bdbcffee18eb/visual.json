@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "854b83f0bdbcffee18eb",
   "position": {
-    "x": 792,
-    "y": 82.666666666666671,
+    "x": 1253.7157107231919,
+    "y": 152.16957605985039,
     "z": 16000,
-    "height": 92.666666666666671,
-    "width": 178,
-    "tabOrder": 16000
+    "height": 168.32917705735662,
+    "width": 282.79301745635911,
+    "tabOrder": 15000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -84,7 +84,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "18D"
+                  "Value": "24D"
                 }
               }
             },
@@ -346,7 +346,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "12D"
                 }
               }
             },

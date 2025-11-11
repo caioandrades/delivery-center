@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "42329c8471415ba83ac2",
   "position": {
-    "x": 700.68292682926835,
-    "y": 187.90243902439025,
+    "x": 1097.5062344139651,
+    "y": 358.20448877805489,
     "z": 3000,
-    "height": 243.21951219512195,
-    "width": 462.73170731707319,
-    "tabOrder": 3000
+    "height": 315.11221945137157,
+    "width": 759.501246882793,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -136,21 +136,21 @@
             "strokeWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "1L"
+                  "Value": "4D"
                 }
               }
             },
             "lineChartType": {
               "expr": {
                 "Literal": {
-                  "Value": "'smooth'"
+                  "Value": "'linear'"
                 }
               }
             },
             "showMarker": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -165,6 +165,34 @@
               "expr": {
                 "Literal": {
                   "Value": "'circle'"
+                }
+              }
+            },
+            "lineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'solid'"
+                }
+              }
+            },
+            "strokeDashCap": {
+              "expr": {
+                "Literal": {
+                  "Value": "'none'"
+                }
+              }
+            },
+            "strokeAutoScale": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "strokeLineJoin": {
+              "expr": {
+                "Literal": {
+                  "Value": "'miter'"
                 }
               }
             }
@@ -437,8 +465,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#21A0AA'"
+                    "ThemeDataColor": {
+                      "ColorId": 7,
+                      "Percent": 0.6
                     }
                   }
                 }
@@ -463,14 +492,14 @@
             "position": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top'"
+                  "Value": "'BottomCenter'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "11D"
                 }
               }
             }
@@ -531,7 +560,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "12D"
                 }
               }
             },
