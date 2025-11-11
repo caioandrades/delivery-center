@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "854b83f0bdbcffee18eb",
   "position": {
-    "x": 1253.7157107231919,
-    "y": 152.16957605985039,
+    "x": 1254.7256857855364,
+    "y": 155.19950124688293,
     "z": 16000,
     "height": 168.32917705735662,
     "width": 282.79301745635911,
@@ -84,7 +84,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "24D"
+                  "Value": "36D"
                 }
               }
             },
@@ -113,6 +113,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'--'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }
@@ -263,7 +274,14 @@
             "size": {
               "expr": {
                 "Literal": {
-                  "Value": "180L"
+                  "Value": "300L"
+                }
+              }
+            },
+            "padding": {
+              "expr": {
+                "Literal": {
+                  "Value": "15L"
                 }
               }
             }
@@ -361,6 +379,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }
