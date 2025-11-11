@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "985e89b41f9466811db1",
   "position": {
-    "x": 223.90243902439025,
-    "y": 187.90243902439025,
+    "x": 297.60598503740647,
+    "y": 358.20448877805489,
     "z": 15000,
-    "height": 238.82926829268294,
-    "width": 460.97560975609758,
-    "tabOrder": 15000
+    "height": 315.11221945137157,
+    "width": 774.31421446384036,
+    "tabOrder": 14000
   },
   "visual": {
     "visualType": "scatterChart",
@@ -512,7 +512,34 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "11D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Verdana'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "bubbles": [
+        {
+          "properties": {
+            "bubbleSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "30L"
+                }
+              }
+            },
+            "markerShape": {
+              "expr": {
+                "Literal": {
+                  "Value": "'circle'"
                 }
               }
             }
@@ -573,7 +600,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "12D"
                 }
               }
             },

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "787db54f6f9ac9d8a5b4",
   "position": {
-    "x": 223.90243902439025,
-    "y": 446.04878048780489,
+    "x": 297.60598503740647,
+    "y": 702.94264339152119,
     "z": 5000,
-    "height": 243.21951219512195,
-    "width": 454.82926829268297,
-    "tabOrder": 5000
+    "height": 320.498753117207,
+    "width": 762.19451371571074,
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "tableEx",
@@ -251,7 +251,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "107.69568041638485D"
+                  "Value": "203.58416105360345D"
                 }
               }
             }
@@ -267,13 +267,29 @@
           }
         },
         {
-          "properties": {},
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145.90524011267775D"
+                }
+              }
+            }
+          },
           "selector": {
             "metadata": "Medidas.Tempo médio de ciclo do pedido"
           }
         },
         {
-          "properties": {},
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "150.70573525454057D"
+                }
+              }
+            }
+          },
           "selector": {
             "metadata": "Medidas.On-Time Delivery"
           }
@@ -282,6 +298,34 @@
           "properties": {},
           "selector": {
             "metadata": "Medidas.Tempo médio de atraso"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "133.14457074064583D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Quantidade de pedidos"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86.8528750886888D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Tempo médio de atraso do pedido"
           }
         }
       ],
@@ -361,7 +405,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "12D"
                 }
               }
             },
