@@ -1,75 +1,86 @@
-import argparse
-import subprocess
 import os
-import sys
+import argparse
+import glob
+from utils import *
 
-# ==========================================================
-#  Mapeamento de workspaces por ambiente
-# ==========================================================
-WORKSPACE_MAP = {
-    "develop": "Nomos BI DEV",
-    "stagging": "Nomos BI UAT",
-    "master": "Nomos BI PRD"
-}
+parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument("--spn-auth", action="store_true", default=True)
+parser.add_argument("--environment", default="main")
+parser.add_argument("--config-file", default="./config.json")
+parser.add_argument("--capacity", default=None, help="Capacity name")
+parser.add_argument("--workspace", default=None, help="Workspace name")
+parser.add_argument("--admin-upns", default=None, help="Comma-separated list of admin UPNs")
 
+args = parser.parse_args()
 
-# ==========================================================
-# Função auxiliar para validar variáveis de ambiente
-# ==========================================================
-def validate_env_vars():
-    required_vars = ["FABRIC_CLIENT_ID", "FABRIC_CLIENT_SECRET", "FABRIC_TENANT_ID"]
-    missing_vars = [var for var in required_vars if not os.getenv(var)]
+current_file = __file__
+current_folder = os.path.dirname(current_file)
+src_folder = os.path.join(current_folder, "..", "src")
 
-    if missing_vars:
-        print(f"❌ Erro: Variáveis de ambiente ausentes: {', '.join(missing_vars)}")
-        sys.exit(1)
+# Deployment parameters:
+spn_auth = args.spn_auth
+environment = args.environment
+capacity_name = args.capacity
+workspace_name = args.workspace
+admin_upns = args.admin_upns.split(",") if args.admin_upns else []
 
+config = read_pbip_jsonfile(args.config_file)
+configEnv = config[args.environment]
 
-# ==========================================================
-#  Função principal de deploy
-# ==========================================================
-def run_fabric_cli(workspace: str):
-    print(f"📦 Iniciando deploy no workspace: {workspace}")
+# Use command-line arguments if provided, otherwise fallback to config values
+capacity_name = capacity_name or configEnv.get("capacity")
+workspace_name = workspace_name or configEnv["workspace"]
+admin_upns = admin_upns or configEnv.get("adminUPNs", "").split(",")
 
-    cmd = [
-        "fab", "deploy",
-        "--workspace", workspace,
-        "--source", "./src",
-        "--spn-client-id", os.getenv("FABRIC_CLIENT_ID"),
-        "--spn-client-secret", os.getenv("FABRIC_CLIENT_SECRET"),
-        "--spn-tenant-id", os.getenv("FABRIC_TENANT_ID")
-    ]
+semanticmodel_parameters = configEnv.get("semanticModelsParameters", None)
+server = semanticmodel_parameters.get("SqlServerInstance", None)
+database = semanticmodel_parameters.get("SqlServerDatabase", None)
 
-    print("🛠️ Executando comando:")
-    print(" ".join(cmd))
+# Authentication
+if spn_auth:
+    fab_authenticate_spn()
 
-    try:
-        subprocess.run(cmd, check=True)
-        print("✅ Deploy concluído com sucesso!")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Erro durante o deploy: {e}")
-        sys.exit(1)
+# Ensure workspace exists
+workspace_id = create_workspace(workspace_name=workspace_name, capacity_name=capacity_name, upns=admin_upns)
 
+# Deploy semantic model
+semanticmodel_id = deploy_item(
+    "src/delivery-center-cicd.SemanticModel",
+    workspace_name=workspace_name,
+    find_and_replace={
+        (
+            r"expressions.tmdl",
+            r'(expression\s+SqlServerInstance\s*=\s*)".*?"',
+        ): rf'\1"{server}"',
+        (
+            r"expressions.tmdl",
+            r'(expression\s+SqlServerDatabase\s*=\s*)".*?"',
+        ): rf'\1"{database}"',
+    },
+)
 
-# ==========================================================
-#  Ponto de entrada principal
-# ==========================================================
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Script de Deploy para Power BI Fabric")
-    parser.add_argument(
-        "--environment",
-        required=True,
-        choices=["develop", "stagging", "master"],
-        help="Ambiente de deploy: develop, staggin ou master"
+# Deploy reports
+for report_path in glob.glob("src/*.Report"):
+    deploy_item(
+        report_path,
+        workspace_name=workspace_name,
+        find_and_replace={
+            ("definition.pbir", r"\{[\s\S]*\}"): json.dumps(
+                {
+                    "version": "4.0",
+                    "datasetReference": {
+                        "byConnection": {
+                            "connectionString": None,
+                            "pbiServiceModelId": None,
+                            "pbiModelVirtualServerName": "sobe_wowvirtualserver",
+                            "pbiModelDatabaseName": semanticmodel_id,
+                            "name": "EntityDataSource",
+                            "connectionType": "pbiServiceXmlaStyleLive",
+                        }
+                    },
+                }
+            )
+        },
     )
 
-    args = parser.parse_args()
-    environment = args.environment.lower()
-
-    workspace = WORKSPACE_MAP.get(environment)
-    if not workspace:
-        print(f"❌ Ambiente inválido: {environment}")
-        sys.exit(1)
-
-    validate_env_vars()
-    run_fabric_cli(workspace)
+run_fab_command("auth logout")

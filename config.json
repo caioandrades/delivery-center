@@ -1,0 +1,32 @@
+{
+    "develop": {
+        "spnSecret": "DEV",
+        "capacity": "none",
+        "workspace": "Nomos BI DEV",
+        "adminUPNs": "d9b9f126-c3f0-4f0d-bd24-746dd45ab295",
+        "semanticModelsParameters": {
+            "SqlServerInstance": "",
+            "SqlServerDatabase": ""
+        }
+    },
+    "staging": {
+        "spnSecret": "UAT",
+        "capacity": "none",
+        "workspace": "Nomos BI UAT",
+        "adminUPNs": "d9b9f126-c3f0-4f0d-bd24-746dd45ab295",
+        "semanticModelsParameters": {
+            "SqlServerInstance": "",
+            "SqlServerDatabase": ""
+        }
+    },
+    "main": {
+        "spnSecret": "PRD",
+        "capacity": "none",
+        "workspace": "Nomos BI PRD",
+        "adminUPNs": "d9b9f126-c3f0-4f0d-bd24-746dd45ab295",
+        "semanticModelsParameters": {
+            "SqlServerInstance": "",
+            "SqlServerDatabase": ""
+        }
+    }
+}
