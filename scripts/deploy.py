@@ -43,9 +43,27 @@ if spn_auth:
 # Ensure workspace exists
 workspace_id = create_workspace(workspace_name=workspace_name, capacity_name=capacity_name, upns=admin_upns)
 
+def get_semantic_model_path(src_dir: str):
+    """Procura uma pasta que termine com .SemanticModel dentro de src"""
+    for root, dirs, files in os.walk(src_dir):
+        for d in dirs:
+            print(f"📁 Verificando diretório: {os.path.join(root, d)}")  # <-- debug
+            if d.endswith(".SemanticModel"):
+                print(f"✅ Encontrado: {os.path.join(root, d)}")  # <-- confirmação
+                return os.path.join(root, d)
+    raise FileNotFoundError("Nenhuma pasta .SemanticModel encontrada na pasta src")
+
+# Diretório base
+src_dir = "src"
+
+# Obtém automaticamente o caminho do semantic model
+semantic_model_path = get_semantic_model_path(src_dir)
+
+print(f"\nCaminho final do Semantic Model: {semantic_model_path}")
+
 # Deploy semantic model
 semanticmodel_id = deploy_item(
-    "src/delivery-center.SemanticModel",
+    semantic_model_path,
     workspace_name=workspace_name,
     find_and_replace={
         (
