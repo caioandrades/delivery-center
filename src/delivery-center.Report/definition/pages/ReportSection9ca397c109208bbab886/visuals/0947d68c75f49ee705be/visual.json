@@ -380,5 +380,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c11b0e561241db26cbc2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "título entregas"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

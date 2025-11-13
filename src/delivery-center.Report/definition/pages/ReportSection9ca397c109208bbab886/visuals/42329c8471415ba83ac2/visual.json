@@ -787,6 +787,62 @@
         },
         "type": "Advanced",
         "howCreated": "User"
+      },
+      {
+        "name": "7cf08547d7a1c48cf138",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Horas"
+              }
+            },
+            "Property": "Hora Num"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "acd442bc920c1b49f78e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos dentro do prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e393659460291925e3cc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos fora do prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fa4ddbe52471552a6164",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "On-Time Delivery"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

@@ -478,5 +478,79 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b4b9e63a4d3ab8022d48",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deliveries"
+              }
+            },
+            "Property": "hub_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "846cba19c4b62b0c10e4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ddfcb7d9e0e5338c7805",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Avg Delivery Time"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0d2c8e7ff3eea4437343",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "On-Time Delivery"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "14e9c829573e8589a96e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Avg Late Time"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
