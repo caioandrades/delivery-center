@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "88de077a9294264914c6",
   "position": {
-    "x": 1567.4812967581049,
-    "y": 156.20947630922709,
+    "x": 1569.9470110504594,
+    "y": 154.60205032618833,
     "z": 14000,
-    "height": 168.32917705735662,
-    "width": 300.29925187032421,
-    "tabOrder": 13000
+    "height": 167.48555452003728,
+    "width": 300.00159765677012,
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -449,8 +449,39 @@
             }
           }
         }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3681bbab110553460472",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos fora do prazo"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

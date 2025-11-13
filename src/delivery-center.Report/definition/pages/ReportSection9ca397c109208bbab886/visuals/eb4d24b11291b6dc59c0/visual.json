@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "eb4d24b11291b6dc59c0",
   "position": {
-    "x": 296.25935162094754,
-    "y": 154.18952618453878,
+    "x": 288.95859406204238,
+    "y": 152.30142457728667,
     "z": 4000,
-    "height": 168.32917705735662,
-    "width": 285.4862842892768,
-    "tabOrder": 3000
+    "height": 169.32605511915858,
+    "width": 300.00159765677012,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -442,8 +442,52 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d71b537bccfe0eb6479e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "On-Time Delivery"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

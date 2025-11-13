@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "854b83f0bdbcffee18eb",
   "position": {
-    "x": 1254.7256857855364,
-    "y": 155.19950124688293,
+    "x": 1252.0005325522568,
+    "y": 150.92104912794568,
     "z": 16000,
-    "height": 168.32917705735662,
-    "width": 282.79301745635911,
-    "tabOrder": 15000
+    "height": 169.32605511915858,
+    "width": 298.16109705764882,
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -441,8 +441,52 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ec25b6211d020df7c4e9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos dentro do prazo"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "787db54f6f9ac9d8a5b4",
   "position": {
-    "x": 297.60598503740647,
-    "y": 702.94264339152119,
+    "x": 285.27759286379978,
+    "y": 692.0282252696046,
     "z": 5000,
-    "height": 320.498753117207,
-    "width": 762.19451371571074,
-    "tabOrder": 4000
+    "height": 320.24710424710429,
+    "width": 778.53175342830525,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "tableEx",
@@ -449,8 +449,108 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b4b9e63a4d3ab8022d48",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deliveries"
+              }
+            },
+            "Property": "hub_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "846cba19c4b62b0c10e4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ddfcb7d9e0e5338c7805",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Avg Delivery Time"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0d2c8e7ff3eea4437343",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "On-Time Delivery"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "14e9c829573e8589a96e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Avg Late Time"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
