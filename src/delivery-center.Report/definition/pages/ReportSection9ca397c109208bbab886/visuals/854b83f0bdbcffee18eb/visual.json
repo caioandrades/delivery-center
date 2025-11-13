@@ -2,9 +2,9 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "854b83f0bdbcffee18eb",
   "position": {
-    "x": 1252.0005325522568,
-    "y": 150.92104912794568,
-    "z": 16000,
+    "x": 1251.5404074024764,
+    "y": 147.24004792970311,
+    "z": 14000,
     "height": 169.32605511915858,
     "width": 298.16109705764882,
     "tabOrder": 12000
@@ -281,7 +281,7 @@
             "padding": {
               "expr": {
                 "Literal": {
-                  "Value": "15L"
+                  "Value": "5L"
                 }
               }
             }
@@ -435,7 +435,7 @@
             "verticalSpacing": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
                 }
               }
             }
@@ -467,26 +467,39 @@
             }
           }
         }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E3E3E3'"
+                    }
+                  }
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "ec25b6211d020df7c4e9",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "Quantidade de pedidos dentro do prazo"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

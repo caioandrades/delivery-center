@@ -554,7 +554,7 @@
             "show": true,
             "color": {
               "solid": {
-                "color": "#FFFFFF"
+                "color": "#E3E3E3"
               }
             },
             "strokeWidth": 0.5,
@@ -630,7 +630,7 @@
             },
             "border": {
               "solid": {
-                "color": "#FFFFFF"
+                "color": "#E3E3E3"
               }
             },
             "background": {

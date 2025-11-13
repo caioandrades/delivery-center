@@ -3,8 +3,8 @@
   "name": "88de077a9294264914c6",
   "position": {
     "x": 1569.9470110504594,
-    "y": 154.60205032618833,
-    "z": 14000,
+    "y": 147.24004792970311,
+    "z": 12000,
     "height": 167.48555452003728,
     "width": 300.00159765677012,
     "tabOrder": 10000
@@ -270,7 +270,7 @@
             "padding": {
               "expr": {
                 "Literal": {
-                  "Value": "15L"
+                  "Value": "5L"
                 }
               }
             }
@@ -443,7 +443,7 @@
             "verticalSpacing": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
                 }
               }
             }
@@ -462,26 +462,52 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E3E3E3'"
+                    }
+                  }
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "3681bbab110553460472",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "Quantidade de pedidos fora do prazo"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
