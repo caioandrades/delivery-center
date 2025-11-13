@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "0947d68c75f49ee705be",
   "position": {
-    "x": 266.63341645885288,
-    "y": 57.905236907730675,
+    "x": 285.64571545067253,
+    "y": 57.055518572759958,
     "z": 10000,
-    "height": 78.104738154613472,
-    "width": 487.48129675810475,
-    "tabOrder": 9000
+    "height": 79.141525762215423,
+    "width": 487.73265876714157,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -351,8 +351,52 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c11b0e561241db26cbc2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "título entregas"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "42329c8471415ba83ac2",
   "position": {
-    "x": 1097.5062344139651,
-    "y": 358.20448877805489,
+    "x": 1087.7358540806817,
+    "y": 351.5356144321662,
     "z": 3000,
-    "height": 315.11221945137157,
-    "width": 759.501246882793,
-    "tabOrder": 2000
+    "height": 322.08760484622559,
+    "width": 773.0102516309413,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -523,8 +523,8 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 7,
-                      "Percent": 0.6
+                      "ColorId": 5,
+                      "Percent": 0
                     }
                   }
                 }
@@ -734,6 +734,32 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
@@ -754,6 +780,62 @@
         },
         "type": "Advanced",
         "howCreated": "User"
+      },
+      {
+        "name": "7cf08547d7a1c48cf138",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Horas"
+              }
+            },
+            "Property": "Hora Num"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "acd442bc920c1b49f78e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos dentro do prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e393659460291925e3cc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos fora do prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fa4ddbe52471552a6164",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "On-Time Delivery"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

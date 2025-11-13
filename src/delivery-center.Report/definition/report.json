@@ -9,6 +9,15 @@
         "page": "1.3.82"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "OverdaxLight-0.01717714084255981333.json",
+      "reportVersionAtImport": {
+        "visual": "2.1.0",
+        "report": "3.0.0",
+        "page": "2.3.0"
+      },
+      "type": "RegisteredResources"
     }
   },
   "filterConfig": {
@@ -99,6 +108,11 @@
           "name": "Delivery_Center_Localiza__o06649851212379354.svg",
           "path": "Delivery_Center_Localiza__o06649851212379354.svg",
           "type": "Image"
+        },
+        {
+          "name": "OverdaxLight-0.01717714084255981333.json",
+          "path": "OverdaxLight-0.01717714084255981333.json",
+          "type": "CustomTheme"
         }
       ]
     }

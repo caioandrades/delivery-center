@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "8f2d671e41fd0a889fe4",
   "position": {
-    "x": 933.89027431421459,
-    "y": 152.16957605985047,
+    "x": 935.89455465317542,
+    "y": 155.06217547596864,
     "z": 13000,
-    "height": 168.32917705735662,
-    "width": 290.87281795511223,
-    "tabOrder": 12000
+    "height": 167.48555452003728,
+    "width": 296.32059645852752,
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -442,8 +442,52 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "dfe8285212217fc39f2a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Avg Late Time"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
