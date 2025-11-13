@@ -162,7 +162,7 @@
             "lineChartType": {
               "expr": {
                 "Literal": {
-                  "Value": "'smooth'"
+                  "Value": "'linear'"
                 }
               }
             },
@@ -211,7 +211,7 @@
             "strokeLineJoin": {
               "expr": {
                 "Literal": {
-                  "Value": "'miter'"
+                  "Value": "'bevel'"
                 }
               }
             },
@@ -225,7 +225,14 @@
             "interpolationSmoothParam": {
               "expr": {
                 "Literal": {
-                  "Value": "50D"
+                  "Value": "100D"
+                }
+              }
+            },
+            "interpolationStep": {
+              "expr": {
+                "Literal": {
+                  "Value": "'after'"
                 }
               }
             }

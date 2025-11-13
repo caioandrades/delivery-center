@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "3a5d79bd9545ba1a83bd",
   "position": {
-    "x": 608.74557315936636,
-    "y": 153.68180002662766,
-    "z": 12000,
+    "x": 609.20569830914667,
+    "y": 145.39954733058184,
+    "z": 10000,
     "height": 169.32605511915858,
-    "width": 307.36360005325525,
+    "width": 300.00159765677012,
     "tabOrder": 8000
   },
   "visual": {
@@ -450,7 +450,71 @@
             "verticalSpacing": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E3E3E3'"
+                    }
+                  }
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            },
+            "ignorePadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

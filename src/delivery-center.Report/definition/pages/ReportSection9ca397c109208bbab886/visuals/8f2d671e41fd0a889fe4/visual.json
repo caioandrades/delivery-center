@@ -2,9 +2,9 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "8f2d671e41fd0a889fe4",
   "position": {
-    "x": 935.89455465317542,
-    "y": 155.06217547596864,
-    "z": 13000,
+    "x": 936.814804952736,
+    "y": 143.55904673146054,
+    "z": 11000,
     "height": 167.48555452003728,
     "width": 296.32059645852752,
     "tabOrder": 9000
@@ -282,7 +282,7 @@
             "padding": {
               "expr": {
                 "Literal": {
-                  "Value": "15L"
+                  "Value": "5L"
                 }
               }
             }
@@ -436,7 +436,64 @@
             "verticalSpacing": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E3E3E3'"
+                    }
+                  }
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
                 }
               }
             }

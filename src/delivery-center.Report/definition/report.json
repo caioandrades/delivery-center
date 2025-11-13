@@ -11,7 +11,7 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "OverdaxLight-0.01717714084255981333.json",
+      "name": "OverdaxLight-0.0177906962680797419.json",
       "reportVersionAtImport": {
         "visual": "2.1.0",
         "report": "3.0.0",
@@ -110,8 +110,8 @@
           "type": "Image"
         },
         {
-          "name": "OverdaxLight-0.01717714084255981333.json",
-          "path": "OverdaxLight-0.01717714084255981333.json",
+          "name": "OverdaxLight-0.0177906962680797419.json",
+          "path": "OverdaxLight-0.0177906962680797419.json",
           "type": "CustomTheme"
         }
       ]
