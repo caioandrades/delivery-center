@@ -3,8 +3,8 @@
   "name": "ReportSection5a49f1e564404aea5607",
   "displayName": "Home",
   "displayOption": "FitToPage",
-  "height": 720,
-  "width": 1280,
+  "height": 1080,
+  "width": 1920,
   "objects": {
     "background": [
       {
@@ -14,7 +14,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Delivery Center (Home).svg'"
+                    "Value": "'Home.svg'"
                   }
                 }
               },
@@ -23,7 +23,7 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "Delivery_Center_(Home)9606327921385336.svg"
+                    "ItemName": "Home8986770891794402.svg"
                   }
                 }
               },
