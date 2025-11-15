@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Delivery >",
+                    "value": "<Delivery >",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "24pt",
