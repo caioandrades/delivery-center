@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
-  "name": "e1201e41e99b602ab971",
+  "name": "b567bd9111957006b6cc",
   "position": {
-    "x": 97.463414634146346,
-    "y": 653.26829268292681,
-    "z": 11000,
-    "height": 40.390243902439025,
-    "width": 40.390243902439025,
-    "tabOrder": 11000
+    "x": 93.2832456799399,
+    "y": 282.73478587528177,
+    "z": 6000,
+    "height": 31.735537190082646,
+    "width": 50.969196093163035,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "actionButton",
@@ -51,6 +51,33 @@
             }
           }
         }
+      ],
+      "text": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -67,21 +94,39 @@
             "type": {
               "expr": {
                 "Literal": {
-                  "Value": "'WebUrl'"
+                  "Value": "'PageNavigation'"
                 }
               }
             },
-            "webUrl": {
+            "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'https://www.linkedin.com/in/caioandrades/'"
+                  "Value": "''"
                 }
               }
             },
             "tooltip": {
               "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Descrição botão entregas"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
                 "Literal": {
-                  "Value": "'Linkedin'"
+                  "Value": "'Clique para iniciar'"
                 }
               }
             }
@@ -90,5 +135,6 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "isHidden": true
 }

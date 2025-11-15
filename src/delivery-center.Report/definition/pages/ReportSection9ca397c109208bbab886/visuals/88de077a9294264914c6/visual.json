@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "88de077a9294264914c6",
   "position": {
-    "x": 983.33333333333337,
-    "y": 82.666666666666671,
-    "z": 14000,
-    "height": 92,
-    "width": 177.33333333333334,
-    "tabOrder": 14000
+    "x": 1569.9470110504594,
+    "y": 147.24004792970311,
+    "z": 12000,
+    "height": 167.48555452003728,
+    "width": 300.00159765677012,
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -84,7 +84,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "18D"
+                  "Value": "36D"
                 }
               }
             },
@@ -113,6 +113,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'--'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }
@@ -252,7 +263,14 @@
             "size": {
               "expr": {
                 "Literal": {
-                  "Value": "180L"
+                  "Value": "300L"
+                }
+              }
+            },
+            "padding": {
+              "expr": {
+                "Literal": {
+                  "Value": "5L"
                 }
               }
             }
@@ -354,7 +372,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "12D"
                 }
               }
             },
@@ -369,6 +387,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }
@@ -414,7 +443,77 @@
             "verticalSpacing": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E3E3E3'"
+                    }
+                  }
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -423,5 +522,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3681bbab110553460472",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos fora do prazo"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

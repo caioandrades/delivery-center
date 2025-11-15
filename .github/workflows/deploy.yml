@@ -7,7 +7,7 @@ on:
     branches:
       - develop
       - staging
-      - main
+      - master
 
   # 2️⃣ Deploy manual (para testes)
   workflow_dispatch:
@@ -20,7 +20,7 @@ on:
         options:
           - develop
           - staging
-          - main
+          - master
 
 env:
   # Define ambiente dinamicamente: branch alvo do merge ou workflow_dispatch

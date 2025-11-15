@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "42329c8471415ba83ac2",
   "position": {
-    "x": 700.68292682926835,
-    "y": 187.90243902439025,
+    "x": 1087.7358540806817,
+    "y": 351.5356144321662,
     "z": 3000,
-    "height": 243.21951219512195,
-    "width": 462.73170731707319,
-    "tabOrder": 3000
+    "height": 322.08760484622559,
+    "width": 773.0102516309413,
+    "tabOrder": 17000
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -126,6 +126,25 @@
                   "Value": "50L"
                 }
               }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
             }
           }
         }
@@ -136,21 +155,21 @@
             "strokeWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "1L"
+                  "Value": "3D"
                 }
               }
             },
             "lineChartType": {
               "expr": {
                 "Literal": {
-                  "Value": "'smooth'"
+                  "Value": "'linear'"
                 }
               }
             },
             "showMarker": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -165,6 +184,55 @@
               "expr": {
                 "Literal": {
                   "Value": "'circle'"
+                }
+              }
+            },
+            "lineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'solid'"
+                }
+              }
+            },
+            "strokeDashCap": {
+              "expr": {
+                "Literal": {
+                  "Value": "'none'"
+                }
+              }
+            },
+            "strokeAutoScale": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "strokeLineJoin": {
+              "expr": {
+                "Literal": {
+                  "Value": "'bevel'"
+                }
+              }
+            },
+            "interpolationSmooth": {
+              "expr": {
+                "Literal": {
+                  "Value": "'cardinal'"
+                }
+              }
+            },
+            "interpolationSmoothParam": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            },
+            "interpolationStep": {
+              "expr": {
+                "Literal": {
+                  "Value": "'after'"
                 }
               }
             }
@@ -265,6 +333,30 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
+                }
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            },
+            "secLabelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
                 }
               }
             }
@@ -437,8 +529,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#21A0AA'"
+                    "ThemeDataColor": {
+                      "ColorId": 5,
+                      "Percent": 0
                     }
                   }
                 }
@@ -463,14 +556,21 @@
             "position": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top'"
+                  "Value": "'BottomCenter'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "11D"
+                }
+              }
+            },
+            "legendMarkerRendering": {
+              "expr": {
+                "Literal": {
+                  "Value": "'markerOnly'"
                 }
               }
             }
@@ -531,7 +631,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "12D"
                 }
               }
             },
@@ -553,6 +653,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'Heading3'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }
@@ -630,6 +741,32 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
@@ -650,6 +787,62 @@
         },
         "type": "Advanced",
         "howCreated": "User"
+      },
+      {
+        "name": "7cf08547d7a1c48cf138",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Horas"
+              }
+            },
+            "Property": "Hora Num"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "acd442bc920c1b49f78e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos dentro do prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e393659460291925e3cc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos fora do prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fa4ddbe52471552a6164",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "On-Time Delivery"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }
