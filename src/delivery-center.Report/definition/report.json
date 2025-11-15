@@ -113,6 +113,16 @@
           "name": "OverdaxLight-0.0177906962680797419.json",
           "path": "OverdaxLight-0.0177906962680797419.json",
           "type": "CustomTheme"
+        },
+        {
+          "name": "nomos-bi-high-resolution-logo-234838710833283.png",
+          "path": "nomos-bi-high-resolution-logo-234838710833283.png",
+          "type": "Image"
+        },
+        {
+          "name": "Delivery_Center_Localiza__o48767495103091374.svg",
+          "path": "Delivery_Center_Localiza__o48767495103091374.svg",
+          "type": "Image"
         }
       ]
     }
