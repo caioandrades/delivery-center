@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
-  "name": "76cb6d41d9db29562cc0",
+  "name": "e6d1e88dd1a0700e3467",
   "position": {
-    "x": 1.8405005991212888,
-    "y": 167.48555452003728,
-    "z": 17000,
-    "height": 207.97656770070566,
-    "width": 230.06257489016113,
-    "tabOrder": 16000
+    "x": 1,
+    "y": 151.948786085276,
+    "z": 16001,
+    "height": 145.26971856504409,
+    "width": 230.42782944800098,
+    "tabOrder": 17001
   },
   "visual": {
     "visualType": "pageNavigator",
@@ -161,6 +161,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "showTooltipPages": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             }
           }
         },
@@ -183,7 +190,7 @@
             "showPage": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -197,7 +204,7 @@
             "showPage": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -211,7 +218,7 @@
             "showPage": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
