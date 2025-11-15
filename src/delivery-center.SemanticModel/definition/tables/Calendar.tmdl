@@ -9,7 +9,7 @@ table Calendar
 
 	measure 'texto título On-Time Delivery gráfico de disperção' =
 			
-			IF(ALLSELECTED(idiomas[language]) = "PT", "Quantidade de pedidos e On-time Delivery Rate por HUB", "Orders and On-Time Delivery Rate HUB")
+			IF(ALLSELECTED(idiomas[language]) = "PT", "Quantidade de pedidos e On-time Delivery Rate por HUB", "Orders and On-Time Delivery Rate by HUB")
 		lineageTag: 8bed6fd8-0030-4174-9df7-d18779958c54
 
 	measure 'texto descrição botão iniciar' =

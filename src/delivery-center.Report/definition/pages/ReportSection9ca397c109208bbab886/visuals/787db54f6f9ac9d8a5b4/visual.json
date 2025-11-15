@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "787db54f6f9ac9d8a5b4",
   "position": {
-    "x": 223.90243902439025,
-    "y": 446.04878048780489,
+    "x": 285.27759286379978,
+    "y": 692.0282252696046,
     "z": 5000,
-    "height": 243.21951219512195,
-    "width": 454.82926829268297,
-    "tabOrder": 5000
+    "height": 320.24710424710429,
+    "width": 778.53175342830525,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "tableEx",
@@ -102,7 +102,7 @@
                     "Entity": "Medidas"
                   }
                 },
-                "Property": "Avg Late Time"
+                "Property": "On-Time Delivery"
               }
             },
             "direction": "Descending"
@@ -171,7 +171,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "14D"
                 }
               }
             }
@@ -207,6 +207,13 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
                 }
               }
             }
@@ -251,7 +258,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "107.69568041638485D"
+                  "Value": "203.58416105360345D"
                 }
               }
             }
@@ -267,13 +274,29 @@
           }
         },
         {
-          "properties": {},
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145.90524011267775D"
+                }
+              }
+            }
+          },
           "selector": {
             "metadata": "Medidas.Tempo médio de ciclo do pedido"
           }
         },
         {
-          "properties": {},
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "150.70573525454057D"
+                }
+              }
+            }
+          },
           "selector": {
             "metadata": "Medidas.On-Time Delivery"
           }
@@ -282,6 +305,34 @@
           "properties": {},
           "selector": {
             "metadata": "Medidas.Tempo médio de atraso"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "133.14457074064583D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Quantidade de pedidos"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86.8528750886888D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Tempo médio de atraso do pedido"
           }
         }
       ],
@@ -361,7 +412,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "12D"
                 }
               }
             },
@@ -369,6 +420,17 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
                 }
               }
             }
@@ -387,8 +449,108 @@
             }
           }
         }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b4b9e63a4d3ab8022d48",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deliveries"
+              }
+            },
+            "Property": "hub_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "846cba19c4b62b0c10e4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Quantidade de pedidos"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ddfcb7d9e0e5338c7805",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Avg Delivery Time"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0d2c8e7ff3eea4437343",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "On-Time Delivery"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "14e9c829573e8589a96e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Avg Late Time"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

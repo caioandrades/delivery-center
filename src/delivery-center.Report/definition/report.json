@@ -9,6 +9,15 @@
         "page": "1.3.82"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "OverdaxLight-0.0177906962680797419.json",
+      "reportVersionAtImport": {
+        "visual": "2.1.0",
+        "report": "3.0.0",
+        "page": "2.3.0"
+      },
+      "type": "RegisteredResources"
     }
   },
   "filterConfig": {
@@ -91,13 +100,28 @@
           "type": "Image"
         },
         {
-          "name": "Delivery_Center_(Home)9606327921385336.svg",
-          "path": "Delivery_Center_(Home)9606327921385336.svg",
+          "name": "Delivery_Center_Localiza__o06649851212379354.svg",
+          "path": "Delivery_Center_Localiza__o06649851212379354.svg",
           "type": "Image"
         },
         {
-          "name": "a46965688399976435.svg",
-          "path": "a46965688399976435.svg",
+          "name": "OverdaxLight-0.0177906962680797419.json",
+          "path": "OverdaxLight-0.0177906962680797419.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "nomos-bi-high-resolution-logo-234838710833283.png",
+          "path": "nomos-bi-high-resolution-logo-234838710833283.png",
+          "type": "Image"
+        },
+        {
+          "name": "Delivery_Center_Localiza__o48767495103091374.svg",
+          "path": "Delivery_Center_Localiza__o48767495103091374.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Home8986770891794402.svg",
+          "path": "Home8986770891794402.svg",
           "type": "Image"
         }
       ]

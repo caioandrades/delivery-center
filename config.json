@@ -19,7 +19,7 @@
             "SqlServerDatabase": ""
         }
     },
-    "main": {
+    "master": {
         "spnSecret": "PRD",
         "capacity": "none",
         "workspace": "Nomos BI PRD",

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "c92615fe2b13682a6d44",
   "position": {
-    "x": 962,
-    "y": 24.585365853658537,
+    "x": 1661.3999327121107,
+    "y": 45.731779433623942,
     "z": 1000,
-    "height": 115.02439024390245,
-    "width": 201.07317073170734,
-    "tabOrder": 1000
+    "height": 78.479043362724966,
+    "width": 202.04179248701536,
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "slicer",
@@ -116,13 +116,6 @@
                   }
                 ]
               }
-            },
-            "selfFilterEnabled": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
             }
           }
         }
@@ -159,7 +152,7 @@
             "textSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "12D"
                 }
               }
             },
@@ -167,6 +160,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#252423'"
+                    }
+                  }
                 }
               }
             }
@@ -213,7 +217,7 @@
             "textSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "11D"
                 }
               }
             },
