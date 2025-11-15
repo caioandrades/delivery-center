@@ -7,7 +7,7 @@
     "z": 15000,
     "height": 65.9850374064838,
     "width": 243.74064837905237,
-    "tabOrder": 14000
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "textbox",
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "<Delivery>",
+                    "value": "Delivery >",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "24pt",
