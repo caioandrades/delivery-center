@@ -45,6 +45,23 @@
           }
         }
       }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F0F0F0'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     ]
   },
   "visibility": "HiddenInViewMode",
