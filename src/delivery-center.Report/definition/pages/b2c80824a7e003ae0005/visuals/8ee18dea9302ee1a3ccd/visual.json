@@ -1,12 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "8ee18dea9302ee1a3ccd",
   "position": {
     "x": 60.111607682087211,
     "y": 151.94878608527603,
     "z": 4000,
     "height": 170.31622176591375,
-    "width": 300.55803841043604
+    "width": 300.55803841043604,
+    "tabOrder": 17000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -225,13 +226,8 @@
             },
             "imageUrl": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Medidas"
-                    }
-                  },
-                  "Property": "Barra progresso entregas"
+                "Literal": {
+                  "Value": "'data:image/svg+xml;utf8, <svg width=''800'' height=''280'' viewBox=''0 0 400 140'' fill=''none'' xmlns=''http://www.w3.org/2000/svg''>       <!--     Barra de Fundo -->     <rect id=''f001'' x=''0'' y=''8'' width=''131'' height=''10'' fill=''#DCDCDC'' opacity=''0.9'' rx=''5'' ry=''5'' />    <!--     Barra de Progresso -->     <rect id=''f002'' x=''0'' y=''8'' width=''114'' height=''10'' fill=''#F94F46'' rx=''5'' ry=''5'' />        <!-- Linha de     Meta -->     <rect id=''f005'' x=''0118 '' y=''04'' width=''1'' height=''20'' fill=''#3f3f3f'' />        <!-- Texto da Categoria     Meta -->     <text id=''f006'' fill=''#3f3f3f'' font-family=''Segoe UI'' font-size=''12'' font-weight=''400''>         <tspan x=''135'' y=''17''> Goal: 90%</tspan>     </text>    <!-- Texto ''Receita'' -->    <!-- <text id=''receitaText''     fill=''#3f3f3f'' font-family=''Segoe UI'' font-size=''12'' font-weight=''400''>        <tspan x=''0''     y=''15''>Receita:</tspan>    </text> -->        <!-- Texto da Categoria -->    <!-- <text id=''f003'' fill=''#3f3f3f''     font-family=''Segoe UI'' font-size=''12'' font-weight=''400''>        <tspan x=''0'' y=''55''> CMV:</tspan>     </text> -->        <!-- Texto de Dados -->   <!-- <text id=''f004'' fill=''#3f3f3f''     font-family=''Segoe UI'' font-size=''15'' font-weight=''600''>        <tspan x=''35'' y=''55''>38 min</tspan>     </text> --> </svg>'"
                 }
               }
             },
@@ -253,6 +249,13 @@
               "expr": {
                 "Literal": {
                   "Value": "15L"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
